@@ -23,7 +23,7 @@ public class Player : MonoBehaviour
     /**
      * Function called when player dies.
      */
-    public void onDeath()
+    public void onPlayerDeath()
     {
         //Save the current scene to return to after death.
         int currentScene = SceneManager.GetActiveScene().buildIndex;
