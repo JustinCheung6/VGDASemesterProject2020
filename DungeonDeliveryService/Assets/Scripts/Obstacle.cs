@@ -24,7 +24,7 @@ public class Obstacle : MonoBehaviour
     /**
      * Function to set activate Obstacle to true.
      */
-    public void OnCollisionEnter2D(Collision collision)
+    public void OnCollisionEnter2D(Collision2D collision)
     {
         if(deliveryPerson.getWeight() > weightTrigger)
         {
