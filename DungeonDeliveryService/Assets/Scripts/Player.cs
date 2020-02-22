@@ -8,6 +8,9 @@ public class Player : MonoBehaviour
     // Set the intital weight of the player to 0.
     private int weight = 0;
 
+    // Variable for most recent level.
+    private int currentScene;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -26,7 +29,7 @@ public class Player : MonoBehaviour
     public void onPlayerDeath()
     {
         //Save the current scene to return to after death.
-        int currentScene = SceneManager.GetActiveScene().buildIndex;
+        this.currentScene = SceneManager.GetActiveScene().buildIndex;
 
         // There should be a "load a death scene" that plays when the player dies but we don't have that, so we'll immediately just restart the level instead.
 
