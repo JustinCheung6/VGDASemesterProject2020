@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        Vector2 currentPosition = transform.position;
     } //Close Start
 
     // Update is called once per frame
@@ -33,6 +33,6 @@ public class PlayerMovement : MonoBehaviour
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
         // Apply the actual movement
-        rb.AddForce(movement * moveSpeed * Time.fixedDeltaTime * 10f);
+        transform.position = ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
     } //Close FixedUpdate
 } //Close PlayerMovement
