@@ -8,8 +8,7 @@ public class KatKey : MonoBehaviour
     // Create Key Tyoes
     public enum KeyType
     {
-        ChestKey,
-        DoorKey
+        DefaultPackage = 0
     }
 
     // Returns type of key

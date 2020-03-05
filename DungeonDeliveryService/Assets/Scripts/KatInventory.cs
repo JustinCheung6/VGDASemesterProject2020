@@ -15,11 +15,13 @@ public class KatInventory : MonoBehaviour
     {
         Debug.Log("Added key: " + keyType);
         keyList.Add(keyType);
+        FindObjectOfType<Player>().increaseWeight();
     }
     //Removes key from inventory/player
     public void RemoveKey(KatKey.KeyType keyType)
     {
         keyList.Remove(keyType);
+        FindObjectOfType<Player>().decreaseWeight();
     }
     // Checks if player has the correct key
     public bool ContainsKey(KatKey.KeyType keyType)

@@ -6,37 +6,24 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour
 {
     // Set the intital weight of the player to 0.
-    private int weight = 0;
+    [SerializeField] private int weight = 0;
 
     // Variable for most recent level.
     private int currentScene;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    } // Close Start
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    } // Close Update
 
     /**
      * Function called when player dies.
      */
     public void onPlayerDeath()
     {
-        //Save the current scene to return to after death.
-        this.currentScene = SceneManager.GetActiveScene().buildIndex;
+
+        currentScene = SceneManager.GetActiveScene().buildIndex;
 
         // There should be a "load a death scene" that plays when the player dies but we don't have that, so we'll immediately just restart the level instead.
 
         // Reload the current scene due to death. Yes, it uses the above value, for futureproofing if there's ever a "death screen". 
         // Tbh, we may end up changing the flow later on anyways.
         SceneManager.LoadScene(currentScene);
-
     } //Close onDeath
 
     /**

@@ -4,40 +4,66 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    private int weightTrigger = 1;
-    Rigidbody2D obstacleCollision;
-    Player deliveryPerson;
+    [SerializeField] protected int weightTrigger = 1;
+    [Tooltip("What Range is the obstacle safe in")]
+    [SerializeField] protected Criteria criteria = Criteria.exactly;
     bool activateObstacle = false;
 
-    // Start is called before the first frame update
-    void Start()
+    protected enum Criteria
     {
-        
-    } // close Start
+        lessThan = -1,
+        exactly = 0,
+        greaterThan = 1
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    } // close Update
+    }
 
     /**
      * Function to set activate Obstacle to true.
      */
-    public void OnCollisionEnter2D(Collision2D collision)
+    public void OnCollisionEnter2D(Collision2D col)
     {
-        if(deliveryPerson.getWeight() > weightTrigger)
+        if(col.gameObject.GetComponent<Player>() != null)
         {
-            activateObstacle = true;
+            if (getWeightToTrigger(col.gameObject.GetComponent<Player>()))
+                TriggerObstacle(col.gameObject.GetComponent<Player>());
         }
     } // Close OnCollisionEnter2D
+    private void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.GetComponent<Player>() != null)
+        {
+            if(getWeightToTrigger(col.gameObject.GetComponent<Player>()))
+                TriggerObstacle(col.gameObject.GetComponent<Player>());
+        }
+    }
 
     /**
-     * Function to return the int of the triggerWeight.
+     * Function checks to see if weight criteria matches
      */
-    public int getWeightToTrigger()
+    public virtual bool getWeightToTrigger(Player player)
     {
-        return this.weightTrigger;
-    } // Close getWeightToTrigger
+        if (criteria == Criteria.lessThan)
+        {
+            if (player.getWeight() > weightTrigger)
+                return false;
+        }
+        else if (criteria == Criteria.greaterThan)
+        {
+            if (player.getWeight() < weightTrigger)
+                return false;
+        }
+        else if (criteria == Criteria.exactly)
+        {
+            if (player.getWeight() != weightTrigger)
+                return false;
+        }
+
+        return true;
+    }
+    //Triggers the mechanism of the obstacle
+    public virtual void TriggerObstacle(Player player)
+    {
+
+    }
 
 } // close Obstacle

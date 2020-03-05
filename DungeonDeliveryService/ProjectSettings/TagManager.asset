@@ -42,15 +42,21 @@ TagManager:
   - name: Floor
     uniqueID: 3726691819
     locked: 0
-  - name: Blocks
-    uniqueID: 3923372191
+  - name: OverWalls
+    uniqueID: 2013009129
+    locked: 0
+  - name: Player
+    uniqueID: 2805716637
     locked: 0
   - name: Obstacles
     uniqueID: 576288499
     locked: 0
+  - name: BottomWalls
+    uniqueID: 3923372191
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
-    uniqueID: 2805716637
+  - name: OverlayEffect
+    uniqueID: 3346383377
     locked: 0
