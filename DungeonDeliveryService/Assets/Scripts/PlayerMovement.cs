@@ -12,10 +12,9 @@ public class PlayerMovement : MonoBehaviour
     // Set up the movement variables that will be called.
     float moveHorizontal, moveVertical;
 
-    // 0 = Left, 1 = Down, 2 = Right, 3 = Up
+    // Checks if direction is disabled because of wind: 0 = Left, 1 = Down, 2 = Right, 3 = Up
     [SerializeField]private bool[] wind = { false, false, false, false };
 
-    //EnablesWind
     public void StartWind(int index)
     {
         wind[index] = true;
@@ -47,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
         // Calculate the player's net movement.
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
+        //Set movement to zero if player is going against wind direction
         if (movement.x < 0 && wind[0])
             movement.x = 0;
         if (movement.x > 0 && wind[2])

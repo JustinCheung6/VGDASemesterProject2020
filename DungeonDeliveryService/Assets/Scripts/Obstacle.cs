@@ -6,15 +6,15 @@ public class Obstacle : MonoBehaviour
 {
     [SerializeField] protected int weightTrigger = 1;
     [Tooltip("What Range is the obstacle safe in")]
-    [SerializeField] protected Criteria criteria = Criteria.exactly;
+    [SerializeField] protected DangerTime criteria = DangerTime.exactly;
     bool activateObstacle = false;
 
-    protected enum Criteria
+    //Conditions for obstacle to be active (be dangerous)
+    protected enum DangerTime
     {
-        lessThan = -1,
+        lessThanOrEqual = -1,
         exactly = 0,
-        greaterThan = 1
-
+        greaterThanOrEqual = 1
     }
 
     /**
@@ -42,17 +42,17 @@ public class Obstacle : MonoBehaviour
      */
     public virtual bool getWeightToTrigger(Player player)
     {
-        if (criteria == Criteria.lessThan)
+        if (criteria == DangerTime.lessThanOrEqual)
         {
             if (player.getWeight() > weightTrigger)
                 return false;
         }
-        else if (criteria == Criteria.greaterThan)
+        else if (criteria == DangerTime.greaterThanOrEqual)
         {
             if (player.getWeight() < weightTrigger)
                 return false;
         }
-        else if (criteria == Criteria.exactly)
+        else if (criteria == DangerTime.exactly)
         {
             if (player.getWeight() != weightTrigger)
                 return false;
