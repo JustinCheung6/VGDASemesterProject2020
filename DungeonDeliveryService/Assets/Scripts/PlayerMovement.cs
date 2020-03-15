@@ -13,15 +13,30 @@ public class PlayerMovement : MonoBehaviour
     float moveHorizontal, moveVertical;
 
     // Checks if direction is disabled because of wind: 0 = Left, 1 = Down, 2 = Right, 3 = Up
-    [SerializeField]private bool[] wind = { false, false, false, false };
+    [SerializeField]private int[] restrinctions = { 0, 0, 0, 0 };
 
-    public void StartWind(int index)
+    public void AddRestriction(int index)
     {
-        wind[index] = true;
+        restrinctions[index] += 1;
     }
-    public void StopWind(int index)
+    public void AddRestriction()
     {
-        wind[index] = false;
+        for (int i = 0; i < restrinctions.Length; i++)
+        {
+            restrinctions[i] += 1;
+        }
+    }
+
+    public void RemoveRestriction(int index)
+    {
+        restrinctions[index] += 1;
+    }
+    public void RemoveRestriction()
+    {
+        for (int i = 0; i < restrinctions.Length; i++)
+        {
+            restrinctions[i] -= 1;
+        }
     }
 
     // Start is called before the first frame update
@@ -41,20 +56,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-
         // Calculate the player's net movement.
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
         //Set movement to zero if player is going against wind direction
-        if (movement.x < 0 && wind[0])
+        if (movement.x < 0 && restrinctions[0] > 0)
             movement.x = 0;
-        if (movement.x > 0 && wind[2])
+        if (movement.x > 0 && restrinctions[2] > 0)
             movement.x = 0;
 
-        if (movement.y < 0 && wind[1])
+        if (movement.y < 0 && restrinctions[1] > 0)
             movement.y = 0;
-        if (movement.y > 0 && wind[3])
+        if (movement.y > 0 && restrinctions[3] > 0)
             movement.y = 0;
 
         // Apply the actual movement

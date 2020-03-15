@@ -31,11 +31,11 @@ public class Wind : Obstacle
     {
         if(windy)
             if (col.GetComponent<PlayerMovement>() != null)
-                col.GetComponent<PlayerMovement>().StartWind((int)wind.forceAngle / 90);
+                col.GetComponent<PlayerMovement>().AddRestriction((int)wind.forceAngle / 90);
     }
     private void OnTriggerExit2D(Collider2D col)
     {
         if (col.GetComponent<PlayerMovement>() != null)
-            col.GetComponent<PlayerMovement>().StopWind((int)wind.forceAngle / 90);
+            col.GetComponent<PlayerMovement>().RemoveRestriction((int)wind.forceAngle / 90);
     }
 }
