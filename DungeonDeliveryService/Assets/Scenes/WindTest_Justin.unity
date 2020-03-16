@@ -341,9 +341,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  wind: {fileID: 0}
   windDirection: -1
   safetyOffset: 0
-  safetyLeniency: 0.1
+  safetyLeniency: 1
   tileCollider: {fileID: 0}
 --- !u!19719996 &596849006
 TilemapCollider2D:
@@ -355,12 +356,86 @@ TilemapCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!1001 &650838294
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 62699718217915960, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915960, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.12788701
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.023839533
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 62699718217915961, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f336ff35e9ed4014093ad9007bd51b99, type: 3}
 --- !u!1 &820109426
 GameObject:
   m_ObjectHideFlags: 0
@@ -419,8 +494,8 @@ GameObject:
   - component: {fileID: 915380293}
   - component: {fileID: 915380292}
   m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
+  m_Name: Wind
+  m_TagString: Wind
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -459,13 +534,13 @@ AreaEffector2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 915380291}
-  m_Enabled: 1
+  m_Enabled: 0
   m_UseColliderMask: 1
   m_ColliderMask:
     serializedVersion: 2
     m_Bits: 4294967295
   m_UseGlobalAngle: 0
-  m_ForceAngle: 0
+  m_ForceAngle: 270
   m_ForceMagnitude: 10
   m_ForceVariation: 0
   m_ForceTarget: 0
@@ -483,6 +558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e3b57f489a88a845a90af07d78f1bcf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   weightTrigger: 1
   criteria: 0
   wind: {fileID: 0}

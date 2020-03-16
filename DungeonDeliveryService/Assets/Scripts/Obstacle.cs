@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
+    [SerializeField] protected Player player;
+
     [SerializeField] protected int weightTrigger = 1;
     [Tooltip("What Range is the obstacle safe in")]
     [SerializeField] protected DangerTime criteria = DangerTime.exactly;
@@ -20,27 +22,33 @@ public class Obstacle : MonoBehaviour
     /**
      * Function to set activate Obstacle to true.
      */
+    protected virtual void Awake()
+    {
+        if (player == null)
+            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
+    }
+    
     public void OnCollisionEnter2D(Collision2D col)
     {
-        if(col.gameObject.GetComponent<Player>() != null)
+        if(col.gameObject.CompareTag("Player"))
         {
-            if (getWeightToTrigger(col.gameObject.GetComponent<Player>()))
-                TriggerObstacle(col.gameObject.GetComponent<Player>());
+            if (getWeightToTrigger())
+                TriggerObstacle();
         }
     } // Close OnCollisionEnter2D
     private void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.GetComponent<Player>() != null)
+        if (col.gameObject.CompareTag("Player"))
         {
-            if(getWeightToTrigger(col.gameObject.GetComponent<Player>()))
-                TriggerObstacle(col.gameObject.GetComponent<Player>());
+            if(getWeightToTrigger())
+                TriggerObstacle();
         }
     }
 
     /**
      * Function checks to see if weight criteria matches
      */
-    public virtual bool getWeightToTrigger(Player player)
+    public virtual bool getWeightToTrigger()
     {
         if (criteria == DangerTime.lessThanOrEqual)
         {
@@ -61,7 +69,7 @@ public class Obstacle : MonoBehaviour
         return true;
     }
     //Triggers the mechanism of the obstacle
-    public virtual void TriggerObstacle(Player player)
+    public virtual void TriggerObstacle()
     {
 
     }

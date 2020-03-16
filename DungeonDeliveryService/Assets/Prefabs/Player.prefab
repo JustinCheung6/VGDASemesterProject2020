@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: 614662371}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -165,7 +165,7 @@ MonoBehaviour:
   moveSpeed: 1
   rb: {fileID: 4762214171980183986}
   acceleration: 1
-  wind: 00000000
+  restrinctions: 00000000000000000000000000000000
 --- !u!61 &614662369
 BoxCollider2D:
   m_ObjectHideFlags: 0

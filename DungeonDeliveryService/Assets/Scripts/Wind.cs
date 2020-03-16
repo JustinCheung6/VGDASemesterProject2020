@@ -6,36 +6,47 @@ public class Wind : Obstacle
 {
     [SerializeField] private AreaEffector2D wind;
     [SerializeField] private BoxCollider2D windCollider;
-    private bool windy = false;
+    private bool strongWinds = false;
+    private bool playerBlocked = false;
 
-    private void Update()
+    public bool StrongWinds { get => strongWinds; }
+    protected override void Awake()
     {
-        if (getWeightToTrigger(FindObjectOfType<Player>()))
-            TriggerObstacle(FindObjectOfType<Player>());
+        base.Awake();
+
+        if (wind == null)
+            wind = GetComponent<AreaEffector2D>();
+        if (windCollider == null)
+            windCollider = GetComponent<BoxCollider2D>();
+    }
+
+    public void ToggleBlocked(bool blocked)
+    {
+        if (playerBlocked == blocked)
+            return;
+
+        playerBlocked = blocked;
+
+        if (strongWinds)
+            TriggerObstacle();
+    }
+
+    public override void TriggerObstacle()
+    {
+        if (strongWinds && !playerBlocked)
+            wind.enabled = true;
         else
-            DisableTrigger(FindObjectOfType<Player>());
+            wind.enabled = false;
     }
 
-    public override void TriggerObstacle(Player player)
+    private void OnTriggerEnter2D(Collider2D col)
     {
-        windCollider.enabled = true;
-        windy = true;
-    }
-    public void DisableTrigger(Player player)
-    {
-        windCollider.enabled = false;
-        windy = false;
-    }
-
-    private void OnTriggerStay2D(Collider2D col)
-    {
-        if(windy)
-            if (col.GetComponent<PlayerMovement>() != null)
-                col.GetComponent<PlayerMovement>().AddRestriction((int)wind.forceAngle / 90);
-    }
-    private void OnTriggerExit2D(Collider2D col)
-    {
-        if (col.GetComponent<PlayerMovement>() != null)
-            col.GetComponent<PlayerMovement>().RemoveRestriction((int)wind.forceAngle / 90);
+        if (!playerBlocked)
+            if (col.CompareTag("Player"))
+                if(getWeightToTrigger() != strongWinds)
+                {
+                    strongWinds = !strongWinds;
+                    TriggerObstacle();
+                }
     }
 }

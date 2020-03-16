@@ -6,7 +6,7 @@ public class Bridge : Obstacle
 {
 
     //Straight up kill player if On collision and disable object (make bridge disappear
-    public override void TriggerObstacle(Player player)
+    public override void TriggerObstacle()
     {
         player.onPlayerDeath();
         this.gameObject.SetActive(false);
