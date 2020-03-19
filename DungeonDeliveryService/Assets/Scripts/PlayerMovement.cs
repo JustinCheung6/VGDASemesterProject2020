@@ -15,11 +15,11 @@ public class PlayerMovement : MonoBehaviour
     // Checks if direction is disabled because of wind: 0 = Left, 1 = Down, 2 = Right, 3 = Up
     [SerializeField]private int[] restrinctions = { 0, 0, 0, 0 };
 
-    public void AddRestriction(int index)
+    public void AddRestrictions(int index)
     {
         restrinctions[index] += 1;
     }
-    public void AddRestriction()
+    public void AddRestrictions()
     {
         for (int i = 0; i < restrinctions.Length; i++)
         {
@@ -27,11 +27,11 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void RemoveRestriction(int index)
+    public void RemoveRestrictions(int index)
     {
-        restrinctions[index] += 1;
+        restrinctions[index] -= 1;
     }
-    public void RemoveRestriction()
+    public void RemoveRestrictions()
     {
         for (int i = 0; i < restrinctions.Length; i++)
         {

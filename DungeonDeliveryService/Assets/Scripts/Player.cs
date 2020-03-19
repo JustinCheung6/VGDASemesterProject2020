@@ -5,9 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    //Event that all obstacles are going to connect to. Activates when weight changes
+    public delegate void UpdateWorld();
+    public static event UpdateWorld WeightChanged;
+
     // Set the intital weight of the player to 0.
     [SerializeField] private int weight = 0;
-
+    
     // Variable for most recent level.
     private int currentScene;
 
@@ -32,6 +36,10 @@ public class Player : MonoBehaviour
     public void increaseWeight()
     {
         this.weight += 1;
+        
+        //Updates all obstacles that the player weight has changed.
+        WeightChanged?.Invoke();
+
     } //Close increaseWeight
 
     /**
@@ -40,6 +48,10 @@ public class Player : MonoBehaviour
     public void decreaseWeight()
     {
         this.weight -= 1;
+
+        //Updates all obstacles that the player weight has changed.
+        WeightChanged?.Invoke();
+
     } //Close decreaseWeight
 
     /**
@@ -49,5 +61,12 @@ public class Player : MonoBehaviour
     {
         return this.weight;
     } // Close getWeight
+
+    //This function invokes Weightchanged event delegate. Debug use only
+    [ContextMenu("Update Weight")]
+    private void updateWeightDebug()
+    {
+        WeightChanged?.Invoke();
+    }
 
 } //Close Player

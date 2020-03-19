@@ -130,10 +130,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 596849002}
+  - component: {fileID: 596849005}
   - component: {fileID: 596849004}
   - component: {fileID: 596849003}
   - component: {fileID: 596849006}
-  - component: {fileID: 596849005}
   m_Layer: 0
   m_Name: Windblock
   m_TagString: Untagged
@@ -344,7 +344,7 @@ MonoBehaviour:
   wind: {fileID: 0}
   windDirection: -1
   safetyOffset: 0
-  safetyLeniency: 1
+  safetyLeniency: 0.5
   tileCollider: {fileID: 0}
 --- !u!19719996 &596849006
 TilemapCollider2D:
@@ -369,6 +369,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 614662371, guid: f336ff35e9ed4014093ad9007bd51b99, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 614662371, guid: f336ff35e9ed4014093ad9007bd51b99, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 614662371, guid: f336ff35e9ed4014093ad9007bd51b99, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 614662371, guid: f336ff35e9ed4014093ad9007bd51b99, type: 3}
+      propertyPath: unityEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 832634381}
+    - target: {fileID: 614662371, guid: f336ff35e9ed4014093ad9007bd51b99, type: 3}
+      propertyPath: weight
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 62699718217915960, guid: f336ff35e9ed4014093ad9007bd51b99,
         type: 3}
       propertyPath: m_Name
@@ -434,6 +454,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4762214171980183986, guid: f336ff35e9ed4014093ad9007bd51b99,
+        type: 3}
+      propertyPath: m_LinearDrag
+      value: 10
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f336ff35e9ed4014093ad9007bd51b99, type: 3}
 --- !u!1 &820109426
@@ -481,6 +506,12 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &832634381 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 62699718217915960, guid: f336ff35e9ed4014093ad9007bd51b99,
+    type: 3}
+  m_PrefabInstance: {fileID: 650838294}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &915380291
 GameObject:
   m_ObjectHideFlags: 0
@@ -491,8 +522,8 @@ GameObject:
   m_Component:
   - component: {fileID: 915380295}
   - component: {fileID: 915380294}
-  - component: {fileID: 915380293}
   - component: {fileID: 915380292}
+  - component: {fileID: 915380293}
   m_Layer: 0
   m_Name: Wind
   m_TagString: Wind
@@ -541,7 +572,7 @@ AreaEffector2D:
     m_Bits: 4294967295
   m_UseGlobalAngle: 0
   m_ForceAngle: 270
-  m_ForceMagnitude: 10
+  m_ForceMagnitude: 300
   m_ForceVariation: 0
   m_ForceTarget: 0
   m_Drag: 0

@@ -9,15 +9,29 @@ public class Wind : Obstacle
     private bool strongWinds = false;
     private bool playerBlocked = false;
 
+    private bool playerRestricted = false;
+    private PlayerMovement playerMove = null;
+
     public bool StrongWinds { get => strongWinds; }
     protected override void Awake()
     {
         base.Awake();
 
-        if (wind == null)
+        if (wind == null && GetComponent<AreaEffector2D>() != null)
             wind = GetComponent<AreaEffector2D>();
-        if (windCollider == null)
+        if (windCollider == null && GetComponent<BoxCollider2D>() != null)
             windCollider = GetComponent<BoxCollider2D>();
+        if (playerMove == null && player.GetComponent<PlayerMovement>() != null)
+            playerMove = player.GetComponent<PlayerMovement>();
+    }
+
+    protected override void UpdateObstacle()
+    {
+        if (getWeightToTrigger() != strongWinds)
+        {
+            strongWinds = !strongWinds;
+            TriggerObstacle();
+        }
     }
 
     public void ToggleBlocked(bool blocked)
@@ -34,19 +48,25 @@ public class Wind : Obstacle
     public override void TriggerObstacle()
     {
         if (strongWinds && !playerBlocked)
+        {
             wind.enabled = true;
+
+            if (!playerRestricted && playerMove != null)
+            {
+                playerRestricted = true;
+                playerMove.AddRestrictions((int)wind.forceAngle / 90);
+
+            }
+        }
         else
+        {
             wind.enabled = false;
+            if (playerRestricted)
+            {
+                playerRestricted = false;
+                playerMove.RemoveRestrictions((int)wind.forceAngle / 90);
+            }
+        }
     }
 
-    private void OnTriggerEnter2D(Collider2D col)
-    {
-        if (!playerBlocked)
-            if (col.CompareTag("Player"))
-                if(getWeightToTrigger() != strongWinds)
-                {
-                    strongWinds = !strongWinds;
-                    TriggerObstacle();
-                }
-    }
 }
