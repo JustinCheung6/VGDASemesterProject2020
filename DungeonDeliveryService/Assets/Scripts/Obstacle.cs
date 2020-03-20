@@ -4,10 +4,14 @@ using UnityEngine;
 
 public class Obstacle : MonoBehaviour
 {
-    [SerializeField] protected Player player;
+    
+    [Tooltip("The exact weight number where obstacle triggers")]
     [SerializeField] protected int weightTrigger = 1;
-    [Tooltip("What Range is the obstacle safe in")]
+    [Tooltip("What Range is the obstacle a danger")]
     [SerializeField] protected DangerTime criteria = DangerTime.exactly;
+    
+    //Object References
+    protected Player player;
 
     //Conditions for obstacle to be active (be dangerous)
     protected enum DangerTime
@@ -15,15 +19,6 @@ public class Obstacle : MonoBehaviour
         lessThanOrEqual = -1,
         exactly = 0,
         greaterThanOrEqual = 1
-    }
-
-    protected virtual void OnEnable()
-    {
-        Player.WeightChanged += UpdateObstacle;
-    }
-    protected virtual void OnDisable()
-    {
-        Player.WeightChanged -= UpdateObstacle;
     }
 
     /**

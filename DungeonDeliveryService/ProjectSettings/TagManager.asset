@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Ground
   - Wind
+  - Laser
+  - Enemy
+  - Grid
   layers:
   - Default
   - TransparentFX

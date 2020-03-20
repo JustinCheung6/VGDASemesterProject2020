@@ -6,9 +6,6 @@ using UnityEngine.Tilemaps;
 public class WindBlock : MonoBehaviour
 {
     private List<Vector2> tilesPos = null;
-    [Tooltip("Used to check player's position")]
-    [SerializeField] private Transform player = null;
-    [SerializeField] private Wind wind = null;
     [Tooltip("Used to check direction of wind")]
     [SerializeField] private int windDirection = -1;
 
@@ -19,6 +16,10 @@ public class WindBlock : MonoBehaviour
         "(positive expands threshhold away from block)")]
     [SerializeField] private float safetyLeniency = 0;
 
+    [Header("Object References")]
+    [Tooltip("Used to check player's position")]
+    [SerializeField] private Transform player = null;
+    [SerializeField] private Wind wind = null;
     [SerializeField] private TilemapCollider2D tileCollider = null;
 
     //Player position only used for comparing its relation from the block (if player is opposite side of blowing wind)

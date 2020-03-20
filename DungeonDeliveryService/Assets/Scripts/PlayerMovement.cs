@@ -13,12 +13,14 @@ public class PlayerMovement : MonoBehaviour
     float moveHorizontal, moveVertical;
 
     // Checks if direction is disabled because of wind: 0 = Left, 1 = Down, 2 = Right, 3 = Up
-    [SerializeField]private int[] restrinctions = { 0, 0, 0, 0 };
+    private int[] restrinctions = { 0, 0, 0, 0 };
 
+    //Stops player movement at a specfic direction
     public void AddRestrictions(int index)
     {
         restrinctions[index] += 1;
     }
+    //Stops player movement altogether
     public void AddRestrictions()
     {
         for (int i = 0; i < restrinctions.Length; i++)
@@ -26,11 +28,12 @@ public class PlayerMovement : MonoBehaviour
             restrinctions[i] += 1;
         }
     }
-
+    //Removes a restrction from player movement at a specific direction
     public void RemoveRestrictions(int index)
     {
         restrinctions[index] -= 1;
     }
+    //Removes a restrction from player movement in all directions
     public void RemoveRestrictions()
     {
         for (int i = 0; i < restrinctions.Length; i++)
@@ -43,14 +46,13 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Vector2 currentPosition = transform.position;
-    } //Close Start
+    } 
 
     // Update is called once per frame
     void Update()
     {
         // Get the respective Horizontal and Vertical movement.
         moveHorizontal = Input.GetAxis("Horizontal");
-
         moveVertical = Input.GetAxis("Vertical");
     } // Close Update
 
@@ -59,7 +61,7 @@ public class PlayerMovement : MonoBehaviour
         // Calculate the player's net movement.
         Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
-        //Set movement to zero if player is going against wind direction
+        //Set movement to zero if movement is restricted in a specific direction
         if (movement.x < 0 && restrinctions[0] > 0)
             movement.x = 0;
         if (movement.x > 0 && restrinctions[2] > 0)
@@ -72,5 +74,5 @@ public class PlayerMovement : MonoBehaviour
 
         // Apply the actual movement
         transform.position = ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
-    } //Close FixedUpdate
+    } 
 } //Close PlayerMovement
