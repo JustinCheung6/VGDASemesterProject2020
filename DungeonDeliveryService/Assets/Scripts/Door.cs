@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KatDoor : MonoBehaviour
+public class Door : MonoBehaviour
 {
 
-    [SerializeField] private KatKey.KeyType keyType;
+    [SerializeField] private Key.KeyType keyType;
     // Gets key type
-    public KatKey.KeyType GetKeyType()
+    public Key.KeyType GetKeyType()
     {
         return keyType;
     }

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class KatKey : MonoBehaviour
+public class Key : MonoBehaviour
 {
     [SerializeField] private KeyType keyType;
     // Create Key Tyoes
