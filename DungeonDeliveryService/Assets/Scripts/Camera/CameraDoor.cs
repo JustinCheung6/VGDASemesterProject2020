@@ -126,13 +126,14 @@ public class CameraDoor : MonoBehaviour
         
         pmScript.AddRestrictions();
         yield return new WaitForSeconds(0.1f);
-        pmScript.RemoveRestrictions();
+        
 
         yield return StartCoroutine(cmScript.SetupDoorAnim(destination, room));
 
         collider.enabled = false;
         yield return StartCoroutine(pmScript.WalkToDoor(destination));
         collider.enabled = true;
+        pmScript.RemoveRestrictions();
     }
 
     private void OnCollisionEnter2D(Collision2D c)
