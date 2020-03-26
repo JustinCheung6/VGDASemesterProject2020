@@ -2,18 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class CameraDoor : MonoBehaviour
 {
     [SerializeField] private CameraRoom[] rooms = new CameraRoom[2];
     [SerializeField] private Orientation doorType = Orientation.NotSet;
-    //[SerializeField] private LayerMask layer;
+
+    private Vector2[] entrancePos = new Vector2[2];
+
+    //Object References
+    private Collider2D collider = null;
+    private Transform cameraDummy = null;
+    private PlayerMovement pmScript = null;
+    private CameraManager cmScript = null;
+
     private enum Orientation
     {
         Disabled = -1,
         NotSet = 0,
         VerticleDoor = 1,
         HorizontalDoor = 2
-    }   
+    }
+
+    private void Awake()
+    {
+        collider = GetComponent<Collider2D>();
+        cameraDummy = GameObject.FindGameObjectWithTag("Camera Dummy").transform;
+        pmScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
+        cmScript = FindObjectOfType<CameraManager>();
+    }
 
     public void ConnectToRooms()
     {
@@ -91,5 +107,58 @@ public class Door : MonoBehaviour
 
         else if (Physics2D.Raycast(transform.position, Vector2.down, transform.localScale.y, layer).collider != null)
             doorType = Orientation.VerticleDoor;
+
+        entrancePos[0] = entrancePos[1] = transform.position;
+        if (doorType == Orientation.HorizontalDoor)
+        {
+            entrancePos[0].x -= 2;
+            entrancePos[1].x += 2;
+        }
+        else if (doorType == Orientation.VerticleDoor)
+        {
+            entrancePos[0].y -= 2;
+            entrancePos[1].y += 2;
+        }
+    }
+
+    private IEnumerator TravelThroughDoor(Vector2 destination, CameraRoom room)
+    {
+        
+        pmScript.AddRestrictions();
+        yield return new WaitForSeconds(0.1f);
+        pmScript.RemoveRestrictions();
+
+        yield return StartCoroutine(cmScript.SetupDoorAnim(destination, room));
+
+        collider.enabled = false;
+        yield return StartCoroutine(pmScript.WalkToDoor(destination));
+        collider.enabled = true;
+    }
+
+    private void OnCollisionEnter2D(Collision2D c)
+    {
+        if (c.gameObject.CompareTag("Player"))
+        {
+            Vector2 destination = transform.position;
+            Vector2Int distance = Vector2Int.zero;
+            CameraRoom cr = null;
+
+            if (doorType == Orientation.VerticleDoor)
+            {
+                distance.y = (c.gameObject.transform.position.y > transform.position.y) ? -1 : 1;
+                destination.y += 2 * distance.y;
+                cr = (distance.y > 0) ? rooms[1] : rooms[0]; 
+            }
+                
+            else if(doorType == Orientation.HorizontalDoor)
+            {
+                distance.x = (c.gameObject.transform.position.x > transform.position.x) ? -1 : 1;
+                destination.x += 2 * distance.x;
+                cr = (distance.x > 0) ? rooms[1] : rooms[0];
+            }
+                
+
+            StartCoroutine(TravelThroughDoor(destination, cr));
+        }
     }
 }

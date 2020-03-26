@@ -29,7 +29,7 @@ public class Stairs : MonoBehaviour
                 Floor1.SetActive(false);
                 Floor2.SetActive(true);
             }
-            else if (Floor2 = true)
+            else if (Floor2 == true)
             {
                 Floor2.SetActive(false);
                 Floor1.SetActive(true);

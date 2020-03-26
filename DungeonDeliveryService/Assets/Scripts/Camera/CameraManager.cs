@@ -9,14 +9,25 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private GameObject roomPrefab = null;
 
     private CameraRoom[,] roomLayout = null;
-    private Vector2Int originCell = new Vector2Int();
+    private Vector2Int originRoom = new Vector2Int();
+    private Vector2Int playerRoom = new Vector2Int();
 
     //Object References
     private Tilemap roomOutline = null;
+    private Camera mainCam = null;
+    private Cinemachine.CinemachineVirtualCamera vcam = null;
+    private Cinemachine.CinemachineConfiner boundingBox = null;
+    private Transform dummyCamera = null;
+    private Transform playerTrans = null;
 
     private void Awake()
     {
         roomOutline = GameObject.FindGameObjectWithTag("Room Outline").GetComponent<Tilemap>();
+        vcam = GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>();
+        boundingBox = GetComponentInChildren<Cinemachine.CinemachineConfiner>();
+        playerTrans = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        dummyCamera = GameObject.FindGameObjectWithTag("Camera Dummy").transform;
+        mainCam = GetComponentInChildren<Camera>();
 
         List<CameraRoom> rooms = new List<CameraRoom>();
         bool originFound = false;
@@ -40,23 +51,27 @@ public class CameraManager : MonoBehaviour
                 }
             }
 
-        List<Door> doors = GameObject.FindGameObjectWithTag("Door Manager").GetComponent<DoorManager>().GetChildren();
-        foreach (Door door in doors)
+        List<CameraDoor> doors = GameObject.FindGameObjectWithTag("Door Manager").GetComponent<DoorManager>().GetChildren();
+        foreach (CameraDoor door in doors)
             door.ConnectToRooms();
 
         int[] dungeonSize = rooms[0].IndexRooms(0, 0);
         Debug.Log("Dungeon Size. X: " + dungeonSize[0] + " Y: " + dungeonSize[1] + " -X: " + dungeonSize[2] + " -Y: " + dungeonSize[3]);
 
-        originCell = -(new Vector2Int(dungeonSize[2], dungeonSize[3]));
+        originRoom = -(new Vector2Int(dungeonSize[2], dungeonSize[3]));
         roomLayout = new CameraRoom[dungeonSize[0] - dungeonSize[2], dungeonSize[1] - dungeonSize[3]];
         foreach (CameraRoom room in rooms)
         {
             //Debug.Log((room.x + originCell.x) + ", " + (room.y + originCell.y));
-            roomLayout[room.x + originCell.x, room.y + originCell.y] = room;
+            roomLayout[room.x + originRoom.x, room.y + originRoom.y] = room;
         }
 
-    }
+        playerRoom = originRoom;
 
+        //Setup Camera
+        vcam.Follow = playerTrans;
+        boundingBox.m_BoundingShape2D = roomLayout[playerRoom.x, playerRoom.y].GetComponent<Collider2D>();
+    }
     private CameraRoom AddRoom(int[] pos, bool origin = false)
     {
         Vector3Int?[] bounds = { null, null };
@@ -93,5 +108,29 @@ public class CameraManager : MonoBehaviour
         room.GetComponentInChildren<BoxCollider2D>().size = size;
 
         return room.GetComponent<CameraRoom>();
+    }
+
+    public IEnumerator SetupDoorAnim(Vector2 destination, CameraRoom newRoom)
+    {
+        playerRoom = newRoom.position;
+
+        boundingBox.m_BoundingShape2D = null;
+        dummyCamera.position = destination;
+        dummyCamera.gameObject.SetActive(true);
+        vcam.Follow = null;
+
+        while((Vector2)mainCam.transform.position != destination)
+        {
+            Vector3 travel = Vector2.MoveTowards(mainCam.transform.position, destination, 0.3f);
+            travel.z = -10;
+
+            Debug.Log("Cam Moving");
+            mainCam.transform.position = travel;
+            yield return new WaitForFixedUpdate();
+        }
+
+        boundingBox.m_BoundingShape2D = newRoom.GetComponent<Collider2D>();
+        vcam.Follow = playerTrans;
+        dummyCamera.gameObject.SetActive(false);
     }
 }
