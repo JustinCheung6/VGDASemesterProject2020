@@ -5,15 +5,16 @@ using UnityEngine;
 public class CameraRoom : MonoBehaviour
 {
     //Door object that are connected to this room (0 = right wall, 1 = top, 2 = left, 3 = bottom)
-    [SerializeField] private Door[] doors = new Door[4];
+    [SerializeField] private CameraDoor[] doors = new CameraDoor[4];
     [SerializeField] private CameraRoom[] rooms = new CameraRoom[4];
     //Position of room relative to the origin room
     private int[] gridPosition = null;
 
     public int x { get => gridPosition[0]; }
     public int y { get => gridPosition[1]; }
+    public Vector2Int position { get => new Vector2Int(gridPosition[0], gridPosition[1]); }
 
-    public void AddDoor(Door door, int index)
+    public void AddDoor(CameraDoor door, int index)
     {
         if (doors[index] != null)
             return;
@@ -28,8 +29,6 @@ public class CameraRoom : MonoBehaviour
 
     public int[] IndexRooms(int x, int y, int negX = 0, int negY = 0)
     {
-        Debug.Log(gridPosition);
-
         if (gridPosition != null)
             return new int[] { x, y, negX, negY };
         gridPosition = new int[] { x, y };
@@ -38,7 +37,7 @@ public class CameraRoom : MonoBehaviour
 
         for(int i = 0; i < rooms.Length; i++)
         {
-            Debug.Log(rooms[i]);
+            //Debug.Log(rooms[i]);
             if (rooms[i] != null)
             {
                 int[] tempData = thisRoomData;

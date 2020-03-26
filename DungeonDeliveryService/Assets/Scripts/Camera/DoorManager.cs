@@ -7,8 +7,7 @@ public class DoorManager : MonoBehaviour
 {
     [SerializeField] private GameObject doorPrefab = null;
 
-    private List<Door> children = null;
-
+    private List<CameraDoor> children = null;
     private Tilemap doorTilemap = null;
 
     private void Awake()
@@ -19,12 +18,12 @@ public class DoorManager : MonoBehaviour
             GetChildren();
     }
 
-    public List<Door> GetChildren()
+    public List<CameraDoor> GetChildren()
     {
         if (children != null)
             return children;
 
-        children = new List<Door>();
+        children = new List<CameraDoor>();
 
         for (int x = doorTilemap.cellBounds.xMin; x < doorTilemap.cellBounds.xMax; x++)
             for (int y = doorTilemap.cellBounds.yMin; y < doorTilemap.cellBounds.yMax; y++)
@@ -36,11 +35,10 @@ public class DoorManager : MonoBehaviour
                     Vector3 doorPosition = doorTilemap.CellToWorld(cellPos) + new Vector3(0.5f,0.5f);
 
                     GameObject door = Instantiate(doorPrefab, doorPosition, Quaternion.identity, transform);
-                    door.GetComponent<Door>().SetDoor();
-                    children.Add(door.GetComponent<Door>());
+                    door.GetComponent<CameraDoor>().SetDoor();
+                    children.Add(door.GetComponent<CameraDoor>());
                 }
             }
         return children;
     }
-
 }
