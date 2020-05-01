@@ -10,7 +10,7 @@ public class CameraDoor : MonoBehaviour
     private Vector2[] entrancePos = new Vector2[2];
 
     //Object References
-    private Collider2D collider = null;
+    private Collider2D doorCollider = null;
     private Transform cameraDummy = null;
     private PlayerMovement pmScript = null;
     private CameraManager cmScript = null;
@@ -25,7 +25,7 @@ public class CameraDoor : MonoBehaviour
 
     private void Awake()
     {
-        collider = GetComponent<Collider2D>();
+        doorCollider = GetComponent<Collider2D>();
         cameraDummy = GameObject.FindGameObjectWithTag("Camera Dummy").transform;
         pmScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         cmScript = FindObjectOfType<CameraManager>();
@@ -130,10 +130,10 @@ public class CameraDoor : MonoBehaviour
 
         yield return StartCoroutine(cmScript.SetupDoorAnim(destination, room));
 
-        collider.enabled = false;
+        doorCollider.enabled = false;
         yield return StartCoroutine(pmScript.WalkToDoor(destination));
-        collider.enabled = true;
-        pmScript.RemoveRestrictions();
+        doorCollider.enabled = true;
+        pmScript.RemoveRestrictions();  
     }
 
     private void OnCollisionEnter2D(Collision2D c)

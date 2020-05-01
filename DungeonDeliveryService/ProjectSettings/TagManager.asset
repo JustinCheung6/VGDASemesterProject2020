@@ -8,6 +8,7 @@ TagManager:
   - Room Outline
   - Camera Dummy
   - Door Manager
+  - Wind
   layers:
   - Default
   - TransparentFX
@@ -42,6 +43,24 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Pit
+    uniqueID: 3957777109
+    locked: 0
+  - name: Floor
+    uniqueID: 728994021
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Obstacles
+    uniqueID: 1474830323
+    locked: 0
+  - name: TopWalls
+    uniqueID: 4100426257
+    locked: 0
+  - name: Player
+    uniqueID: 1050307909
+    locked: 0
+  - name: BottomWalls
+    uniqueID: 1186383691
     locked: 0

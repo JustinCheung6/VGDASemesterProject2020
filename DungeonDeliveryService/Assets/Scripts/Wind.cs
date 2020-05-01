@@ -6,7 +6,9 @@ public class Wind : Obstacle
 {
     //Is true when player's weight is in range of obstacle (decides if player is restricted)
     private bool strongWinds = false;
-    public bool StrongWinds { get => strongWinds; } //Property of strongWinds
+    private bool inRange = false;
+    //Is true when player is in range and has correct weight (for WindBlock script)
+    public bool WindReady { get => strongWinds && inRange; } 
     //Is true when player is behind a windblock object (decides if player is restricted)
     private bool playerBlocked = false;
     //Is true when the wind is blowing against the players (restricts player from walking towards wind)
@@ -14,8 +16,8 @@ public class Wind : Obstacle
 
     //Object References
     private PlayerMovement playerMove = null;
-    private AreaEffector2D wind;
-    private BoxCollider2D windCollider;
+    private AreaEffector2D wind = null;
+    private BoxCollider2D windCollider = null;
 
     //Obstacle gets updated everytime player weight changes
     private void OnEnable()
@@ -63,7 +65,7 @@ public class Wind : Obstacle
     //Activates AreaEffector and player Restriciton if criteria is met
     public override void TriggerObstacle()
     {
-        if (strongWinds && !playerBlocked)
+        if (strongWinds && !playerBlocked && inRange)
         {
             wind.enabled = true;
 
@@ -87,4 +89,22 @@ public class Wind : Obstacle
         }
     }
 
+    protected override void OnTriggerEnter2D(Collider2D c)
+    {
+        base.OnTriggerEnter2D(c);
+        if (c.gameObject.CompareTag("Player"))
+        {
+            inRange = true;
+            TriggerObstacle();
+        }
+    }
+
+    private void OnTriggerExit2D(Collider2D c)
+    {
+        if (c.gameObject.CompareTag("Player"))
+        {
+            inRange = false;
+            TriggerObstacle();
+        }
+    }
 }

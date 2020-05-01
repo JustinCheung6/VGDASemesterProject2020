@@ -11,11 +11,14 @@ public class PlayerMovement : MonoBehaviour
     public float acceleration = 1.0f;
     // Set up the movement variables that will be called.
     private float moveHorizontal, moveVertical;
-    private bool animatedMovement = false;
+    [SerializeField] private bool animatedMovement = false;
+    //Check if player is moving by the controller
+    private bool controllerMovement = false;
 
+    public bool IsMoving { get => (animatedMovement || controllerMovement); }
 
     // Checks if direction is disabled because of wind: 0 = Left, 1 = Down, 2 = Right, 3 = Up
-    private int[] restrinctions = { 0, 0, 0, 0 };
+    [SerializeField] private int[] restrinctions = { 0, 0, 0, 0 };
 
     //Stops player movement at a specfic direction
     public void AddRestrictions(int index)
@@ -25,6 +28,8 @@ public class PlayerMovement : MonoBehaviour
     //Stops player movement altogether
     public void AddRestrictions()
     {
+        rb.velocity = Vector3.zero;
+
         for (int i = 0; i < restrinctions.Length; i++)
         {
             restrinctions[i] += 1;
@@ -69,16 +74,31 @@ public class PlayerMovement : MonoBehaviour
             // Calculate the player's net movement.
             Vector2 movement = new Vector2(moveHorizontal, moveVertical);
 
-            //Set movement to zero if movement is restricted in a specific direction
-            if (movement.x < 0 && restrinctions[0] > 0)
-                movement.x = 0;
-            if (movement.x > 0 && restrinctions[2] > 0)
-                movement.x = 0;
+            //Check if player is moving at all
+            if (movement == Vector2.zero)
+            {
+                controllerMovement = false;
+            }
+            else
+            {
+                controllerMovement = true;
 
-            if (movement.y < 0 && restrinctions[1] > 0)
-                movement.y = 0;
-            if (movement.y > 0 && restrinctions[3] > 0)
-                movement.y = 0;
+                //Set movement to zero if movement is restricted in a specific direction
+                if (movement.x < 0 && restrinctions[0] > 0)
+                    movement.x = 0;
+                else if (movement.x > 0 && restrinctions[2] > 0)
+                    movement.x = 0;
+                else
+                    rb.velocity = new Vector2(0, rb.velocity.y);
+
+                if (movement.y < 0 && restrinctions[1] > 0)
+                    movement.y = 0;
+                else if (movement.y > 0 && restrinctions[3] > 0)
+                    movement.y = 0;
+                else
+                    rb.velocity = new Vector2(rb.velocity.x, 0);
+            }
+                
 
             // Apply the actual movement
             transform.position = ((Vector2)transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);

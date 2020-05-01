@@ -46,9 +46,9 @@ public class Obstacle : MonoBehaviour
                 TriggerObstacle();
         }
     } // Close OnCollisionEnter2D
-    private void OnTriggerEnter2D(Collider2D col)
+    protected virtual void OnTriggerEnter2D(Collider2D c)
     {
-        if (col.gameObject.CompareTag("Player"))
+        if (c.gameObject.CompareTag("Player"))
         {
             if(getWeightToTrigger())
                 TriggerObstacle();

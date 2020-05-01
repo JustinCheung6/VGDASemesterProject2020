@@ -56,13 +56,15 @@ public class CameraManager : MonoBehaviour
             door.ConnectToRooms();
 
         int[] dungeonSize = rooms[0].IndexRooms(0, 0);
-        Debug.Log("Dungeon Size. X: " + dungeonSize[0] + " Y: " + dungeonSize[1] + " -X: " + dungeonSize[2] + " -Y: " + dungeonSize[3]);
+        //Debug.Log("Dungeon Size. X: " + dungeonSize[0] + " Y: " + dungeonSize[1] + " -X: " + dungeonSize[2] + " -Y: " + dungeonSize[3]);
 
         originRoom = -(new Vector2Int(dungeonSize[2], dungeonSize[3]));
-        roomLayout = new CameraRoom[dungeonSize[0] - dungeonSize[2], dungeonSize[1] - dungeonSize[3]];
+        roomLayout = new CameraRoom[dungeonSize[0] - dungeonSize[2] + 1, dungeonSize[1] - dungeonSize[3] + 1];
+        //Debug.Log(dungeonSize[0] - dungeonSize[2] + ", " + (dungeonSize[1] - dungeonSize[3]));
         foreach (CameraRoom room in rooms)
         {
-            //Debug.Log((room.x + originCell.x) + ", " + (room.y + originCell.y));
+            //Debug.Log(room.x + ", " + room.y);
+            //.Log((room.x + originRoom.x) + ", " + (room.y + originRoom.y));
             roomLayout[room.x + originRoom.x, room.y + originRoom.y] = room;
         }
 
@@ -114,21 +116,34 @@ public class CameraManager : MonoBehaviour
     {
         playerRoom = newRoom.position;
 
-        boundingBox.m_BoundingShape2D = null;
+        //boundingBox.m_BoundingShape2D = null;
         dummyCamera.position = destination;
         dummyCamera.gameObject.SetActive(true);
+        dummyCamera.GetComponent<Cinemachine.CinemachineConfiner>().m_BoundingShape2D = newRoom.GetComponent<Collider2D>();
         vcam.Follow = null;
+        boundingBox.m_BoundingShape2D = newRoom.GetComponent<Collider2D>();
 
-        while((Vector2)mainCam.transform.position != destination)
+        /*
+        while ((Vector2)mainCam.transform.position != destination)
         {
-            Vector3 travel = Vector2.MoveTowards(mainCam.transform.position, destination, 0.3f);
+           //Vector3 travel = Vector2.MoveTowards(mainCam.transform.position, destination, 0.3f);
+            Vector3 travel = destination;
             travel.z = -10;
 
             Debug.Log("Cam Moving");
             mainCam.transform.position = travel;
             yield return new WaitForFixedUpdate();
         }
+        */
+        //Vector3 travel = Vector2.MoveTowards(mainCam.transform.position, destination, 0.3f);
+        Vector3 travel = destination;
+        travel.z = -10;
 
+        Debug.Log("Cam Moving");
+        mainCam.transform.position = travel;
+        yield return new WaitForFixedUpdate();
+
+        dummyCamera.GetComponent<Cinemachine.CinemachineConfiner>().m_BoundingShape2D = null;
         boundingBox.m_BoundingShape2D = newRoom.GetComponent<Collider2D>();
         vcam.Follow = playerTrans;
         dummyCamera.gameObject.SetActive(false);

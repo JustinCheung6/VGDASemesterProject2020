@@ -15,6 +15,8 @@ public class GridManager : MonoBehaviour
 
     [SerializeField] private Vector3[] playerCellPos = { Vector3.zero, Vector3.zero };
 
+    public Vector3[] PlayerCellPos { get => playerCellPos; }
+
     void Awake()
     {
         //Initialize all the object variables
@@ -95,26 +97,60 @@ public class GridManager : MonoBehaviour
                 finalCellPos[1].x = finalCellPos[0].x = (int)tempCellPos.x;
             }
         }
+        else
+        {
+            finalCellPos[1].x = finalCellPos[0].x = 0;
+        }
 
         tempCellPos.y = ((position.y - startingCellPos.y) * cellConversion.y);
-        if (tempCellPos.y - (int)tempCellPos.y >= -cellSize[2].y)
+        if (tempCellPos.y > 0)
         {
-            finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y + 1;
+            if (tempCellPos.y - (int)tempCellPos.y >= (cellSize[1].y + cellSize[2].y))
+            {
+                finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y + 1;
+            }
+            else if (tempCellPos.y - (int)tempCellPos.y >= cellSize[1].y)
+            {
+                finalCellPos[0].y = (int)tempCellPos.y + 1;
+                finalCellPos[1].y = (int)tempCellPos.y + 0.5f;
+            }
+            else if (tempCellPos.y - (int)tempCellPos.y >= cellSize[2].y)
+            {
+                finalCellPos[0].y = (int)tempCellPos.y;
+                finalCellPos[1].y = (int)tempCellPos.y + 0.5f;
+            }
+            else
+            {
+                finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y;
+            }
+
         }
-        else if (tempCellPos.y - (int)tempCellPos.y >= -cellSize[1].y)
+        else if (tempCellPos.y != 0)
         {
-            finalCellPos[0].y = (int)tempCellPos.y + 1;
-            finalCellPos[1].y = (int)tempCellPos.y + 0.5f;
-        }
-        else if (tempCellPos.y - (int)tempCellPos.y >= -(cellSize[2].y + cellSize[1].y))
-        {
-            finalCellPos[0].y = (int)tempCellPos.y;
-            finalCellPos[1].y = (int)tempCellPos.y + 0.5f;
+            if (tempCellPos.y - (int)tempCellPos.y >= -cellSize[2].y)
+            {
+                finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y + 1;
+            }
+            else if (tempCellPos.y - (int)tempCellPos.y >= -cellSize[1].y)
+            {
+                finalCellPos[0].y = (int)tempCellPos.y + 1;
+                finalCellPos[1].y = (int)tempCellPos.y + 0.5f;
+            }
+            else if (tempCellPos.y - (int)tempCellPos.y >= -(cellSize[2].y + cellSize[1].y))
+            {
+                finalCellPos[0].y = (int)tempCellPos.y;
+                finalCellPos[1].y = (int)tempCellPos.y + 0.5f;
+            }
+            else
+            {
+                finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y;
+            }
         }
         else
         {
-            finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y;
+            finalCellPos[1].y = finalCellPos[0].y = 0;
         }
+
         return finalCellPos;
     }
 }

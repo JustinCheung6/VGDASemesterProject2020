@@ -9,89 +9,12 @@ public class WindBlock : MonoBehaviour
     [Tooltip("Used to check direction of wind")]
     [SerializeField] private int windDirection = -1;
 
-    [Tooltip("Moves threashold of when player is considered behind the block " +
-        "(positive moves threshhold in direction of the wind)")]
-    [SerializeField] private float safetyOffset = 0;
-    [Tooltip("Expands threashold of when player is considered between the block " +
-        "(positive expands threshhold away from block)")]
-    [SerializeField] private float safetyLeniency = 0;
-
     [Header("Object References")]
     [Tooltip("Used to check player's position")]
     [SerializeField] private Transform player = null;
     [SerializeField] private Wind wind = null;
     [SerializeField] private TilemapCollider2D tileCollider = null;
-
-    //Player position only used for comparing its relation from the block (if player is opposite side of blowing wind)
-    private float PlayerPosBeh
-    {
-        get
-        {
-            //Wind blowing to the right
-            if (windDirection == 0)
-                return player.position.x;
-            //Wind blowing up
-            else if (windDirection == 1)
-                return player.position.y;
-            //Wind blowing to the left
-            else if (windDirection == 2)
-                return -player.position.x;
-            //Wind blowing down
-            else if(windDirection == 3)
-                return -player.position.y;
-            
-            Debug.Log("PlayerComparablePos: windDirection not set.");
-            return 0;
-        }
-    }
-    //Player position only used for comparing its relation from the block (if player is between block edges)
-    private float PlayerPosBetw
-    {
-        get
-        {
-            //Wind blowing to the right or left
-            if (windDirection == 0 || windDirection == 2)
-                return player.position.y;
-            //Wind blowing up or down
-            else if (windDirection == 1 || windDirection == 3)
-                return player.position.x;
-
-            Debug.Log("PlayerComparablePos: windDirection not set.");
-            return 0;
-        }
-    }
-    //Block pos only used for comparing relation from player (if player is between block edges)
-    private float BlockPosBetw(int i)
-    {
-        //Wind blowing to the right or left
-        if (windDirection == 0 || windDirection == 2)
-            return tilesPos[i].y;
-        //Wind blowing up or down
-        else if (windDirection == 1 || windDirection == 3)
-            return tilesPos[i].x;
-
-        Debug.Log("PlayerComparablePos: windDirection not set.");
-        return 0;
-    }
-    //Block pos only used for comparing relation from player (if player is opposite side of blowing wind)
-    private float BlockPosBeh(int i)
-    {
-        //Wind blowing to the right
-        if (windDirection == 0)
-            return tilesPos[i].x;
-        //Wind blowing up
-        else if (windDirection == 1)
-            return tilesPos[i].y;
-        //Wind blowing to the left
-        else if (windDirection == 2)
-            return -tilesPos[i].x;
-        //Wind blowing down
-        else if (windDirection == 3)
-            return -tilesPos[i].y;
-
-        Debug.Log("PlayerComparablePos: windDirection not set.");
-        return 0;
-    }
+    [SerializeField] private GridManager gridManager = null;
     private void Awake()
     {
         //Get objects if not found
@@ -101,20 +24,34 @@ public class WindBlock : MonoBehaviour
             wind = GameObject.FindGameObjectWithTag("Wind").GetComponent<Wind>();
         if (tileCollider == null)
             tileCollider = GetComponent<TilemapCollider2D>();
+        if (gridManager == null)
+            gridManager = GetComponentInParent<GridManager>();
 
         //Get tile positions. Cycle all positions in grid, and check if there's a tile there
         tilesPos = new List<Vector2>();
+    }
+
+    private void Start()
+    {
         Tilemap tilemap = GetComponent<Tilemap>();
 
         foreach (Vector3Int localPos in tilemap.cellBounds.allPositionsWithin)
         {
             if (tilemap.HasTile(localPos))
-                tilesPos.Add(tilemap.CellToWorld(localPos));
+            {
+                Vector3 tempBlockPos = tilemap.CellToWorld(localPos);
+                tempBlockPos.x += 0.5f;
+                tempBlockPos.y += 0.5f;
+                Vector3[] finalBlockPos = gridManager.WorldtoCell(tempBlockPos);
+
+                tilesPos.Add(finalBlockPos[0]);
+                Debug.Log(tempBlockPos);
+                Debug.Log(finalBlockPos[0]);
+            }
         }
 
         //Setup variables using wind script
-        windDirection = (int) (wind.GetComponent<AreaEffector2D>().forceAngle * .011f) + 1;
-
+        windDirection = (int)(wind.GetComponent<AreaEffector2D>().forceAngle * .011f) + 1;
     }
 
     private void Update()
@@ -122,7 +59,7 @@ public class WindBlock : MonoBehaviour
         //Check if both player and windDirection was found
         if(player != null && windDirection != -1)
         {
-            if (wind.StrongWinds)
+            if (wind.WindReady)
             {
                 wind.ToggleBlocked(CheckBlocked());
             }
@@ -137,9 +74,10 @@ public class WindBlock : MonoBehaviour
         //Check if player is behind the block (not sticking out in contact with wind)
         for(int i = 0; i < tilesPos.Count; i++)
         {
+
             //Checks if the player is at the correct side of the block (opposite of wind)
-            if (PlayerPosBetw >= (BlockPosBetw(i) - safetyLeniency) && PlayerPosBetw <= (BlockPosBetw(i) + safetyLeniency))
-                if (PlayerPosBeh >= BlockPosBeh(i) + safetyOffset)
+            if (tilesPos[i].y >= gridManager.PlayerCellPos[0].y)
+                if (tilesPos[i].x == gridManager.PlayerCellPos[0].x)
                 {
                     Debug.Log("Player is Hiding");
                     return true;
