@@ -105,28 +105,8 @@ public class PlayerMovement : MonoBehaviour
         }
     } 
 
-    public IEnumerator WalkToDoor(Vector2 destination)
+    public void WalkToDoor(Vector2 destination)
     {
-        AddRestrictions();
-
-        Vector2 startingPos = transform.position;
-        animatedMovement = true;
-
-        while (animatedMovement)
-        {
-            Vector2 movement = Vector2.zero;
-            Debug.Log("We Moving");
-
-            if ((Vector2)transform.position !=  destination)
-            {
-                transform.position = Vector2.MoveTowards(transform.position, destination, moveSpeed * 0.1f);
-                yield return new WaitForFixedUpdate();
-            }
-            else
-            {
-                animatedMovement = false;
-                RemoveRestrictions();
-            }
-        }
+        transform.position = destination;
     }
 } //Close PlayerMovement

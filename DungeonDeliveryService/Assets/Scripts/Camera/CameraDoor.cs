@@ -131,7 +131,7 @@ public class CameraDoor : MonoBehaviour
         yield return StartCoroutine(cmScript.SetupDoorAnim(destination, room));
 
         doorCollider.enabled = false;
-        yield return StartCoroutine(pmScript.WalkToDoor(destination));
+        pmScript.WalkToDoor(destination);
         doorCollider.enabled = true;
         pmScript.RemoveRestrictions();  
     }

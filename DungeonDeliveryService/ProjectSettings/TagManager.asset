@@ -64,3 +64,9 @@ TagManager:
   - name: BottomWalls
     uniqueID: 1186383691
     locked: 0
+  - name: Colliders
+    uniqueID: 3059141705
+    locked: 0
+  - name: Outlines
+    uniqueID: 1964019461
+    locked: 0

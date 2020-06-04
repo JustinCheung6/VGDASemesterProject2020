@@ -10,20 +10,15 @@ public class DoorManager : MonoBehaviour
     private List<CameraDoor> children = null;
     private Tilemap doorTilemap = null;
 
-    private void Awake()
-    {
-        if (doorTilemap == null)
-            doorTilemap = GetComponent<Tilemap>();
-        if (children == null)
-            GetChildren();
-    }
-
     public List<CameraDoor> GetChildren()
     {
         if (children != null)
             return children;
 
         children = new List<CameraDoor>();
+
+        if (doorTilemap == null)
+            doorTilemap = GetComponent<Tilemap>();
 
         for (int x = doorTilemap.cellBounds.xMin; x < doorTilemap.cellBounds.xMax; x++)
             for (int y = doorTilemap.cellBounds.yMin; y < doorTilemap.cellBounds.yMax; y++)
