@@ -4,35 +4,46 @@ using UnityEngine;
 
 public class Stairs : MonoBehaviour
 {
-
-    public GameObject Floor1;
-    public GameObject Floor2;
-
-    // Start is called before the first frame update
-    void Start()
+    [Tooltip("True if Vertical Stairs, False if Horizontal")]
+    [SerializeField] private bool pathway;
+    [Tooltip("Direction of stair incline \n" +
+        "true = +x/y direction, false = -x/y direction")]
+    [SerializeField] private bool upstairsDirection;
+    void OnTriggerExit2D(Collider2D player)
     {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
-    void OnTriggerEnter2D(Collider2D player)
-    {
-        if (player.gameObject.tag == "Player")
+        Debug.Log("Stairs");
+        if(pathway)
         {
-            if (Floor1 == true)
+            if (upstairsDirection)
             {
-                Floor1.SetActive(false);
-                Floor2.SetActive(true);
+                if(player.transform.position.y > transform.position.y)
+                    FloorManager.singleton.Upstairs();
+                else
+                    FloorManager.singleton.Downstairs();
             }
-            else if (Floor2 == true)
+            else
             {
-                Floor2.SetActive(false);
-                Floor1.SetActive(true);
+                if (player.transform.position.y < transform.position.y)
+                    FloorManager.singleton.Downstairs();
+                else
+                    FloorManager.singleton.Upstairs();
+            }
+        }
+        else
+        {
+            if (upstairsDirection)
+            {
+                if (player.transform.position.x > transform.position.x)
+                    FloorManager.singleton.Upstairs();
+                else
+                    FloorManager.singleton.Downstairs();
+            }
+            else
+            {
+                if (player.transform.position.x < transform.position.x)
+                    FloorManager.singleton.Downstairs();
+                else
+                    FloorManager.singleton.Upstairs();
             }
         }
     }

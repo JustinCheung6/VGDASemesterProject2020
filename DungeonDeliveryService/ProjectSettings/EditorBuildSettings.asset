@@ -6,6 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/PlaytestLevel_Justin.unity
+    path: Assets/Scenes/Outdated Scenes/PlaytestLevel_Justin.unity
     guid: 044e16132a829c041afd2f9d6f0eb22d
   m_configObjects: {}
