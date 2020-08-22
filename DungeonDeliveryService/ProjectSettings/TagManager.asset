@@ -10,6 +10,7 @@ TagManager:
   - Door Manager
   - Wind
   - Block
+  - Hole
   layers:
   - Default
   - TransparentFX
