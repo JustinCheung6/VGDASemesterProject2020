@@ -9,6 +9,7 @@ TagManager:
   - Camera Dummy
   - Door Manager
   - Wind
+  - Block
   layers:
   - Default
   - TransparentFX
