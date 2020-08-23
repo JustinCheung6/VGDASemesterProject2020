@@ -11124,6 +11124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   block: {fileID: 2046767856}
   hole: {fileID: 726910037}
+  holeCol: {fileID: 726910039}
 --- !u!1 &1343742659
 GameObject:
   m_ObjectHideFlags: 0

@@ -7,13 +7,17 @@ public class HoleObstacle : MonoBehaviour
 
     public GameObject block;
     public GameObject hole;
-    //public Collider2D holeCol;
+    public Collider2D holeCol;
 
     private void Start()
     {
-        //if (hole.gameObject.CompareTag("Hole"))
+        // Trying to enable trigger for hole when player touched to make the hole 
+        // as a "blocked path" but won't work. Any help is appreciated.
+        //if (hole.gameObject.CompareTag("Player"))
         //{
             //holeCol.isTrigger = false;
+
+            //holeCol.enabled = true;
         //}
     }
 
@@ -29,7 +33,7 @@ public class HoleObstacle : MonoBehaviour
 
         if (col.gameObject.CompareTag("Block"))
         {
-            //code to be executed on collision
+            // code to be executed on collision
 
             //if (hole.gameObject.CompareTag("Hole"))
             //{
@@ -38,16 +42,28 @@ public class HoleObstacle : MonoBehaviour
 
             //holeCol.isTrigger = true;
 
-           // col.isTrigger = true;
-           // hole.GetComponent<Collider2D>().enabled = true;
+            // col.isTrigger = true;
+            // hole.GetComponent<Collider2D>().enabled = true;
+
+            // Trying to enable trigger for hole when player touched to make the hole 
+            // as a "blocked path" but won't work. Then once the block collides with
+            // the hole, the hole collider should be disabled and player should pass
+            // through, but still not working. Is that even possible to do? Any help is appreciated.
+
+            //if (hole.gameObject.CompareTag("Block"))
+            //{
+            //holeCol.enabled = false;
+            //}
+
+            //holeCol.enabled = false;
 
             hole.SetActive(false);
 
-            //block.isStatic = true;
-            //sets the rigidbody of the block from dynamic to static
+            // block.isStatic = true;
+            // sets the rigidbody of the block from dynamic to static
             block.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-            //block.SetActive(false);
-            //block.GetComponent<Renderer>().enabled = false;
+            // block.SetActive(false);
+            // block.GetComponent<Renderer>().enabled = false;
             /*
              * disables gameobject while also letting the block gameobject be visible,
                by disabiling the block collider. it's a good way to set gameobjects 
