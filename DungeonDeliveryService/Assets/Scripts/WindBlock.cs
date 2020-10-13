@@ -45,8 +45,8 @@ public class WindBlock : MonoBehaviour
                 Vector3[] finalBlockPos = gridManager.WorldtoCell(tempBlockPos);
 
                 tilesPos.Add(finalBlockPos[0]);
-                Debug.Log(tempBlockPos);
-                Debug.Log(finalBlockPos[0]);
+                //Debug.Log(tempBlockPos);
+                //Debug.Log(finalBlockPos[0]);
             }
         }
 
@@ -79,11 +79,11 @@ public class WindBlock : MonoBehaviour
             if (tilesPos[i].y >= gridManager.PlayerCellPos[0].y)
                 if (tilesPos[i].x == gridManager.PlayerCellPos[0].x)
                 {
-                    Debug.Log("Player is Hiding");
+                    //Debug.Log("Player is Hiding");
                     return true;
                 } 
         }
-        Debug.Log("Player is Winded");
+        //Debug.Log("Player is Winded");
         return false;
     }
 }

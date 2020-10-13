@@ -89,6 +89,7 @@ public class PlayerMovement : MonoBehaviour
                 else if (movement.x > 0 && restrinctions[2] > 0)
                     movement.x = 0;
                 else
+                    //This prevents player from being affected by area effector after it's been turned off
                     rb.velocity = new Vector2(0, rb.velocity.y);
 
                 if (movement.y < 0 && restrinctions[1] > 0)
@@ -96,9 +97,9 @@ public class PlayerMovement : MonoBehaviour
                 else if (movement.y > 0 && restrinctions[3] > 0)
                     movement.y = 0;
                 else
+                    //This prevents player from being affected by area effector after it's been turned off
                     rb.velocity = new Vector2(rb.velocity.x, 0);
             }
-                
 
             // Apply the actual movement
             transform.position = ((Vector2)transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
