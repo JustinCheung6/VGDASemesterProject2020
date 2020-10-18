@@ -928,6 +928,7 @@
           <e p="Key.cs" t="Include" />
           <e p="Obstacle.cs" t="Include" />
           <e p="PauseMenu.cs" t="Include" />
+          <e p="Pit.cs" t="Include" />
           <e p="Player.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PressurePlate.cs" t="Include" />
