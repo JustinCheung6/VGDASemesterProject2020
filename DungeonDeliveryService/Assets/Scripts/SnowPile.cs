@@ -15,12 +15,11 @@ public class SnowPile : MonoBehaviour
 
     [SerializeField] private bool snowpile;
     [SerializeField] private bool upstairs;
-    [SerializeField] private bool downstairs;
 
     // Start is called before the first frame update
     void Start()
     {
-        if(upstairs)
+        if(!upstairs)
         {
             GetComponent<Collider>().enabled = false;
         }
