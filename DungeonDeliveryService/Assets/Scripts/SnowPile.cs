@@ -1,51 +1,100 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
-public class SnowPile : MonoBehaviour
+public class SnowPile : Obstacle
 {
-    /* im still confused on how unity stuff works
-     * im just basing this off if we automatically
-     * make snowtiles a tilecollider or something
-     * even then code be wonky as i dont know how
-     * to check if floor is upstairs or downstairs */
+    [SerializeField] private Tilemap snowPiles = null;
+    [SerializeField] private TilemapCollider2D tileCollider2D = null;
 
-    /*public GameObject Floor1;
-    public GameObject Floor2;*/
+    private Dictionary<Vector3, bool> tilePos = new Dictionary<Vector3, bool>();
+    //Information for duplicating snowpiles
+    private List<Vector3Int> ogPosition = new List<Vector3Int>();
+    //Images for the snow object (middle, top, left, right, bottom)
+    private Sprite[] snow = { null, null, null, null, null };
 
-    [SerializeField] private bool snowpile;
-    [SerializeField] private bool upstairs;
-
-    // Start is called before the first frame update
-    void Start()
+    protected override void Awake()
     {
-        if(!upstairs)
-        {
-            GetComponent<Collider>().enabled = false;
-        }
+        base.Awake();
+        snowPiles = GetComponent<Tilemap>();
+        tileCollider2D = GetComponent<TilemapCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        
+        SetStairs(GetStairs());
+        TrackSnowPiles();
     }
 
-    void OnTriggerEnter2D(Collider2D player)
+    private void TrackSnowPiles()
     {
-        /*if (player.gameObject.tag == "Player")
-        {
-            Floor1.SetActive(true);
-            Floor2.SetActive(false);
-        }*/
+        snowPiles.CompressBounds();
 
-        if(snowpile)
+        foreach (Vector3Int pos in snowPiles.cellBounds.allPositionsWithin)
         {
-            if(upstairs)
+            bool hasTile = false;
+            Vector3 cellPos = cellPos = GridManager.Get.WorldtoCell(new Vector3(pos.x + 0.51f, pos.y + 0.51f, pos.z))[1];
+            //Debug.Log("Position1: " + cellPos);
+
+            if (snowPiles.HasTile(pos))
             {
-                FloorManager.singleton.Downstairs();
-                Destroy(gameObject);
+                ogPosition.Add(pos);
+                hasTile = true;
             }
+            if(!tilePos.ContainsKey(cellPos))
+                tilePos.Add(cellPos, hasTile);
         }
+    }
+
+    //Sets collider isTrigger based on whether player is upstairs or not
+    public void SetStairs(bool upStairs)
+    {
+        tileCollider2D.isTrigger = upStairs;
+    }
+    //Getter for FloorManager 
+    public bool GetStairs()
+    {
+        if (FloorManager.Get == null)
+        {
+            Debug.Log("Warning: FloormManager is empty");
+            return false;
+        }
+        return FloorManager.Get.UpStairs;
+    }
+
+    //Check if player is on top of a snowblock
+    protected override void UpdateObstacle()
+    {
+        //Checks if player is on top of snow pile 
+        if (tilePos.ContainsKey(GridManager.Get.PlayerCellPos[1]))
+            if (tilePos[GridManager.Get.PlayerCellPos[1]])
+                TriggerObstacle();
+    }
+    //Delete tile and drop player down to bottom floor
+    public override void TriggerObstacle()
+    {
+        Vector3Int deletePos = snowPiles.WorldToCell(FindObjectOfType<PlayerMovement>().transform.position);
+
+        snowPiles.SetTile(deletePos, null);
+
+        tilePos[GridManager.Get.PlayerCellPos[0]] = false;
+        FloorManager.Get.Downstairs();
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D col)
+    {
+        if(getWeightToTrigger())
+            GridManager.Get.OnMoved += UpdateObstacle;
+    }
+    protected void OnTriggerExit2D(Collider2D col)
+    {
+        if(getWeightToTrigger())
+            GridManager.Get.OnMoved -= UpdateObstacle;
+    }
+    //Remove default obstacle OnCollisionEnter function
+    public override void OnCollisionEnter2D(Collision2D col)
+    {
+
     }
 }

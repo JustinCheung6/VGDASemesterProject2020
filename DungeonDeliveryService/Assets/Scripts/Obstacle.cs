@@ -38,7 +38,7 @@ public class Obstacle : MonoBehaviour
             TriggerObstacle();
     }
 
-    public void OnCollisionEnter2D(Collision2D col)
+    public virtual void OnCollisionEnter2D(Collision2D col)
     {
         if(col.gameObject.CompareTag("Player"))
         {

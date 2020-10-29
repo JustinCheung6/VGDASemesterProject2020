@@ -4,19 +4,23 @@ using UnityEngine;
 
 public class FloorManager : MonoBehaviour
 {
-    public static FloorManager singleton = null;
+    private static FloorManager singleton = null;
+    public static FloorManager Get { get => singleton; }
 
-    [SerializeField] private Collider2D firstFloorCollider = null;
-    [SerializeField] private Collider2D secondFloorCollider = null;
+    private List<Collider2D> floor1Colliders = new List<Collider2D>();
+    private List<Collider2D> floor2Colliders = new List<Collider2D>();
+    private List<SnowPile> snowPiles = new List<SnowPile>();
 
 
     [Tooltip("True if starting upstairs, False if starting downstairs")]
     [SerializeField] private bool upStairs;
+    public bool UpStairs { get => upStairs; }
 
     private void Awake()
     {
         if(FloorManager.singleton == null)
         {
+            Debug.Log("FloorManager Set");
             FloorManager.singleton = this;
         }
         else if(FloorManager.singleton != this)
@@ -24,6 +28,29 @@ public class FloorManager : MonoBehaviour
             Debug.Log("Extra singleton found for FloorManager. " + this);
             Destroy(gameObject);
         }
+
+    }
+    private void Start()
+    {
+        GameObject[] floor1 = GameObject.FindGameObjectsWithTag("Floor1");
+        foreach(GameObject f in floor1)
+        {
+            if (f.GetComponent<Collider2D>() != null)
+                floor1Colliders.Add(f.GetComponent<Collider2D>());
+            else
+                Debug.Log("Floor1. Collider2D not found");
+        }
+        GameObject[] floor2 = GameObject.FindGameObjectsWithTag("Floor2");
+        foreach (GameObject f in floor2)
+        {
+            if (f.GetComponent<SnowPile>() != null)
+                snowPiles.Add(f.GetComponent<SnowPile>());
+            else if (f.GetComponent<Collider2D>() != null)
+                floor2Colliders.Add(f.GetComponent<Collider2D>());
+            else
+                Debug.Log("Floor2. Collider2D not found");
+        }
+
 
         if (upStairs)
             Upstairs();
@@ -33,32 +60,38 @@ public class FloorManager : MonoBehaviour
 
     public void Upstairs()
     {
-        if (firstFloorCollider != null && secondFloorCollider != null)
+        Debug.Log("Going Up");
+        foreach(Collider2D f in floor1Colliders)
         {
-            Debug.Log("Going Up");
-            firstFloorCollider.enabled = false;
-            secondFloorCollider.enabled = true;
-            upStairs = true;
+            f.enabled = false;
         }
-        else
+        foreach(Collider2D f in floor2Colliders)
         {
-            Debug.Log("Floor Colliders not set in FloorManager");
+            f.enabled = true;
         }
-            
-    }
+        foreach(SnowPile s in snowPiles)
+        {
+            s.SetStairs(true);
+        }
 
+        upStairs = true;
+    }
     public void Downstairs()
     {
-        if (firstFloorCollider != null && secondFloorCollider != null)
+        Debug.Log("Going Down");
+        foreach (Collider2D f in floor1Colliders)
         {
-            Debug.Log("Going Down");
-            firstFloorCollider.enabled = true;
-            secondFloorCollider.enabled = false;
-            upStairs = false;
+            f.enabled = true;
         }
-        else
+        foreach (Collider2D f in floor2Colliders)
         {
-            Debug.Log("Floor Colliders not set in FloorManager");
+            f.enabled = false;
         }
+        foreach (SnowPile s in snowPiles)
+        {
+            s.SetStairs(false);
+        }
+
+        upStairs = false;
     }
 }

@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class GridManager : MonoBehaviour
 {
+    private static GridManager singleton;
+    public static GridManager Get { get => singleton;  }
+    
     private Grid grid = null;
     private Transform playerTrans = null;
 
@@ -17,8 +20,21 @@ public class GridManager : MonoBehaviour
 
     public Vector3[] PlayerCellPos { get => playerCellPos; }
 
+    //Event that updates only when the player moves
+    public delegate void PlayerMove();
+    public event PlayerMove OnMoved;
+
     void Awake()
     {
+        //Set singleton script
+        if (singleton == null)
+        {
+            Debug.Log("GridManager Set");
+            singleton = this;
+        }
+        else if (singleton != this)
+            Debug.Log("Error. There are multiple GridManagers in this Scene.");
+
         //Initialize all the object variables
         if(grid == null)
         {
@@ -40,12 +56,22 @@ public class GridManager : MonoBehaviour
         cellConversion.y = 1 / cellSize[0].y;
 
         startingCellPos = grid.transform.position + cellSize[1];
+        //Debug.Log("Starting Cell Pos: " + startingCellPos);
     }
 
     // Update is called once per frame
     void Update()
     {
+        Vector3[] oldPos = playerCellPos;
         playerCellPos = WorldtoCell(playerTrans.position);
+        
+        //Check if positions changed enough to call event
+        if(oldPos[1] != playerCellPos[1])
+        {
+            //Debug.Log("Delegate Move");
+            if(singleton.OnMoved != null)
+                singleton.OnMoved();    
+        }
     }
 
     public Vector3[] WorldtoCell(Vector3 position)
@@ -70,31 +96,38 @@ public class GridManager : MonoBehaviour
                 finalCellPos[0].x = (int)tempCellPos.x;
                 finalCellPos[1].x = (int)tempCellPos.x + 0.5f;
             }
+            else if (tempCellPos.x - (int)tempCellPos.x > 0)
+            {
+                finalCellPos[0].x = (int)tempCellPos.x;
+                finalCellPos[1].x = (int)tempCellPos.x;
+            }
             else
             {
-                finalCellPos[1].x = finalCellPos[0].x = (int)tempCellPos.x;
+                finalCellPos[1].x = finalCellPos[0].x = (int)tempCellPos.x - 1;
             }
 
         }
         else if(tempCellPos.x != 0)
         {
-            if (tempCellPos.x - (int)tempCellPos.x >= -cellSize[2].x)
+            //Debug.Log(tempCellPos.x + " , " + (int)tempCellPos.x);
+
+            if (-(tempCellPos.x - (int)tempCellPos.x) <= cellSize[2].x)
             {
-                finalCellPos[1].x = finalCellPos[0].x = (int)tempCellPos.x + 1;
+                finalCellPos[1].x = finalCellPos[0].x = (int)tempCellPos.x;
             }
-            else if (tempCellPos.x - (int)tempCellPos.x >= -cellSize[1].x)
-            {
-                finalCellPos[0].x = (int)tempCellPos.x + 1;
-                finalCellPos[1].x = (int)tempCellPos.x + 0.5f;
-            }
-            else if (tempCellPos.x - (int)tempCellPos.x >= -(cellSize[2].x + cellSize[1].x))
+            else if (-(tempCellPos.x - (int)tempCellPos.x) < cellSize[1].x)
             {
                 finalCellPos[0].x = (int)tempCellPos.x;
-                finalCellPos[1].x = (int)tempCellPos.x + 0.5f;
+                finalCellPos[1].x = (int)tempCellPos.x - 0.5f;
+            }
+            else if (-(tempCellPos.x - (int)tempCellPos.x) <= (cellSize[2].x + cellSize[1].x) )
+            {
+                finalCellPos[0].x = (int)tempCellPos.x - 1f;
+                finalCellPos[1].x = (int)tempCellPos.x - 0.5f;
             }
             else
             {
-                finalCellPos[1].x = finalCellPos[0].x = (int)tempCellPos.x;
+                finalCellPos[1].x = finalCellPos[0].x = (int)tempCellPos.x -1f;
             }
         }
         else
@@ -119,31 +152,36 @@ public class GridManager : MonoBehaviour
                 finalCellPos[0].y = (int)tempCellPos.y;
                 finalCellPos[1].y = (int)tempCellPos.y + 0.5f;
             }
+            else if (tempCellPos.y - (int)tempCellPos.y > 0)
+            {
+                finalCellPos[0].y = (int)tempCellPos.y;
+                finalCellPos[1].y = (int)tempCellPos.y;
+            }
             else
             {
-                finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y;
+                finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y-1;
             }
 
         }
         else if (tempCellPos.y != 0)
         {
-            if (tempCellPos.y - (int)tempCellPos.y >= -cellSize[2].y)
+            if ( - (tempCellPos.y - (int)tempCellPos.y) <= cellSize[2].y)
             {
-                finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y + 1;
+                finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y;
             }
-            else if (tempCellPos.y - (int)tempCellPos.y >= -cellSize[1].y)
-            {
-                finalCellPos[0].y = (int)tempCellPos.y + 1;
-                finalCellPos[1].y = (int)tempCellPos.y + 0.5f;
-            }
-            else if (tempCellPos.y - (int)tempCellPos.y >= -(cellSize[2].y + cellSize[1].y))
+            else if ( - (tempCellPos.y - (int)tempCellPos.y) < cellSize[1].y)
             {
                 finalCellPos[0].y = (int)tempCellPos.y;
-                finalCellPos[1].y = (int)tempCellPos.y + 0.5f;
+                finalCellPos[1].y = (int)tempCellPos.y - 0.5f;
+            }
+            else if (-(tempCellPos.y - (int)tempCellPos.y) <= (cellSize[2].y + cellSize[1].y))
+            {
+                finalCellPos[0].y = (int)tempCellPos.y - 1f;
+                finalCellPos[1].y = (int)tempCellPos.y - 0.5f;
             }
             else
             {
-                finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y;
+                finalCellPos[1].y = finalCellPos[0].y = (int)tempCellPos.y - 1f;
             }
         }
         else

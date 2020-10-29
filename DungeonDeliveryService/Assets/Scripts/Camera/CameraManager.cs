@@ -13,7 +13,7 @@ public class CameraManager : MonoBehaviour
     private Vector2Int playerRoom = new Vector2Int();
 
     //Object References
-    private Tilemap roomOutline = null;
+    [Tooltip("Finds object with Room Outline tag for setting up rooms")][SerializeField] private Tilemap roomOutline = null;
     private Camera mainCam = null;
     private Cinemachine.CinemachineVirtualCamera vcam = null;
     private Cinemachine.CinemachineConfiner boundingBox = null;

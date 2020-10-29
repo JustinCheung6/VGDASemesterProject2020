@@ -11,6 +11,8 @@ TagManager:
   - Wind
   - Block
   - Hole
+  - Floor1
+  - Floor2
   layers:
   - Default
   - TransparentFX
