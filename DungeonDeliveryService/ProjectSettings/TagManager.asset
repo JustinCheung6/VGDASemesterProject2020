@@ -62,9 +62,6 @@ TagManager:
   - name: TopWalls
     uniqueID: 4100426257
     locked: 0
-  - name: Player
-    uniqueID: 1050307909
-    locked: 0
   - name: BottomWalls
     uniqueID: 1186383691
     locked: 0
@@ -73,4 +70,7 @@ TagManager:
     locked: 0
   - name: Outlines
     uniqueID: 1964019461
+    locked: 0
+  - name: Player
+    uniqueID: 1050307909
     locked: 0

@@ -28,21 +28,23 @@ public class CameraManager : MonoBehaviour
         playerTrans = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         dummyCamera = GameObject.FindGameObjectWithTag("Camera Dummy").transform;
         mainCam = GetComponentInChildren<Camera>();
-
+    }
+    private void Start()
+    {
         List<CameraRoom> rooms = new List<CameraRoom>();
         bool originFound = false;
 
-        for(int x = roomOutline.cellBounds.xMin; x < roomOutline.cellBounds.xMax; x++)
-            for(int y = roomOutline.cellBounds.yMin; y < roomOutline.cellBounds.yMax; y++)
+        for (int x = roomOutline.cellBounds.xMin; x < roomOutline.cellBounds.xMax; x++)
+            for (int y = roomOutline.cellBounds.yMin; y < roomOutline.cellBounds.yMax; y++)
             {
-                if (roomOutline.HasTile(new Vector3Int(x,y,0)))
+                if (roomOutline.HasTile(new Vector3Int(x, y, 0)))
                 {
                     if (!originFound)
                     {
                         if (roomOutline.HasTile(new Vector3Int(x, y - 1, 0)) && roomOutline.HasTile(new Vector3Int(x - 1, y, 0)))
                         {
                             rooms.Insert(0, AddRoom(new int[2] { x, y }, true));
-                        } 
+                        }
                         else if (roomOutline.HasTile(new Vector3Int(x, y + 1, 0)) && roomOutline.HasTile(new Vector3Int(x + 1, y, 0)))
                             rooms.Add(AddRoom(new int[2] { x, y }));
                     }
@@ -51,7 +53,7 @@ public class CameraManager : MonoBehaviour
                 }
             }
 
-        List<CameraDoor> doors = GameObject.FindGameObjectWithTag("Door Manager").GetComponent<DoorManager>().GetChildren();
+        List<CameraDoor> doors = DoorManager.Get.GetChildren();
         foreach (CameraDoor door in doors)
             door.ConnectToRooms();
 
@@ -74,6 +76,7 @@ public class CameraManager : MonoBehaviour
         vcam.Follow = playerTrans;
         boundingBox.m_BoundingShape2D = roomLayout[playerRoom.x, playerRoom.y].GetComponent<Collider2D>();
     }
+
     private CameraRoom AddRoom(int[] pos, bool origin = false)
     {
         Vector3Int?[] bounds = { null, null };

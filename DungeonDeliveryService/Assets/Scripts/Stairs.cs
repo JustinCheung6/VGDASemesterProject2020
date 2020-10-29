@@ -23,7 +23,7 @@ public class Stairs : MonoBehaviour
             }
             else
             {
-                if (player.transform.position.y < transform.position.y)
+                if (player.transform.position.y > transform.position.y)
                     FloorManager.Get.Downstairs();
                 else
                     FloorManager.Get.Upstairs();
@@ -40,7 +40,7 @@ public class Stairs : MonoBehaviour
             }
             else
             {
-                if (player.transform.position.x < transform.position.x)
+                if (player.transform.position.x > transform.position.x)
                     FloorManager.Get.Downstairs();
                 else
                     FloorManager.Get.Upstairs();
