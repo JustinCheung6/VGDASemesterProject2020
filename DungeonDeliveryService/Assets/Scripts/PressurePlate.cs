@@ -2,22 +2,29 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PressurePlate : MonoBehaviour
+public class PressurePlate : Obstacle
 {
-    [SerializeField] private int weight = 100;
-    [SerializeField] private int weight_threshold = 200;
-
-    [SerializeField] bool isOpened = false;
+    [Tooltip("The door connected to the pressure plate")]
+    [SerializeField] private Door door;
+    [Tooltip("Whether or not the mechanism is active")]
     [SerializeField] private BoxCollider2D BC;
-    [SerializeField] private SpriteRenderer SR;
-    private void OnTriggerEnter2D(Collider2D PressurePlate)
+
+    protected override void Awake()
     {
-        
-        if (!isOpened)
-        {
-            isOpened = true;
-            BC.enabled = false;
-            SR.enabled = false;
-        }
+        base.Awake();
+        criteria = DangerTime.greaterThanOrEqual;
+        weightTrigger = 1;
+    }
+
+    protected override void OnTriggerEnter2D(Collider2D c)
+    {
+        base.OnTriggerEnter2D(c);
+    }
+
+    //Activates whatever mechanism
+    public override void TriggerObstacle()
+    {
+        door.OpenDoor();
+        BC.enabled = false;
     }
 }
