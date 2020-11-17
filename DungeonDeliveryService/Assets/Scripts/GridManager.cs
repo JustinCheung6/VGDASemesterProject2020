@@ -55,7 +55,7 @@ public class GridManager : MonoBehaviour
         cellConversion.x = 1 / cellSize[0].x;
         cellConversion.y = 1 / cellSize[0].y;
 
-        startingCellPos = grid.transform.position + cellSize[1];
+        startingCellPos = cellSize[1];
         //Debug.Log("Starting Cell Pos: " + startingCellPos);
     }
 
@@ -63,7 +63,7 @@ public class GridManager : MonoBehaviour
     void Update()
     {
         Vector3[] oldPos = playerCellPos;
-        playerCellPos = WorldtoCell(playerTrans.position);
+        playerCellPos = WorldtoCell(playerTrans.position - grid.transform.position);
         
         //Check if positions changed enough to call event
         if(oldPos[1] != playerCellPos[1])
