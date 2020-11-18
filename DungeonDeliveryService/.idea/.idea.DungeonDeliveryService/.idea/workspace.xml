@@ -13,6 +13,7 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Wind.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Scripts/MovingPlatform.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Obstacle.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Bridge.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Pit.cs" root0="FORCE_HIGHLIGHTING" />
@@ -22,6 +23,7 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/Assets/Scripts/Pit.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/MovingPlatform.cs" />
       </list>
     </option>
   </component>
@@ -72,6 +74,7 @@
       <option name="presentableId" value="Default" />
       <updated>1602988067020</updated>
       <workItem from="1602988076945" duration="1437000" />
+      <workItem from="1605649727664" duration="622000" />
     </task>
     <servers />
   </component>
@@ -85,7 +88,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

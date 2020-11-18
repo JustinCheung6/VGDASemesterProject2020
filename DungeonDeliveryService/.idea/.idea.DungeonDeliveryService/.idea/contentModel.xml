@@ -912,7 +912,6 @@
             </e>
           </e>
         </e>
-        <e p="HoleObstacle.cs" t="Include" />
         <e p="Scripts" t="Include">
           <e p="Bridge.cs" t="Include" />
           <e p="Camera" t="Include">
@@ -924,8 +923,10 @@
           <e p="Door.cs" t="Include" />
           <e p="FloorManager.cs" t="Include" />
           <e p="GridManager.cs" t="Include" />
+          <e p="HoleObstacle.cs" t="Include" />
           <e p="Inventory.cs" t="Include" />
           <e p="Key.cs" t="Include" />
+          <e p="MovingPlatform.cs" t="Include" />
           <e p="Obstacle.cs" t="Include" />
           <e p="PauseMenu.cs" t="Include" />
           <e p="Pit.cs" t="Include" />
