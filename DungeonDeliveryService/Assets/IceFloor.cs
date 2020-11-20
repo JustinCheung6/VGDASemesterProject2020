@@ -101,8 +101,11 @@ public class IceFloor : MonoBehaviour
             //transform.position = ((Vector2)transform.position) + (movement * speed * Time.fixedDeltaTime * 10f);
         }
 
-        // if player collides with the ice floor, the player won't be able to move in another direction
-        // while on the ice
+        /*
+         * if player collides with the ice floor, the player won't be able to move in another direction
+         * while on the ice. Alternatively, OnTriggerStay can also be used.
+         * 
+         * */
         void OnTriggerEnter2D(Collider2D collision)
     {
             GetComponent<Collider2D>().sharedMaterial.friction = 0.1f;
@@ -153,6 +156,5 @@ public class IceFloor : MonoBehaviour
                 RemoveRestrictions(2);
             }
         }
-
   } // Close FixedUpdate
 }
