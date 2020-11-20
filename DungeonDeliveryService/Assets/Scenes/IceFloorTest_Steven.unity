@@ -7996,7 +7996,7 @@ GameObject:
   - component: {fileID: 1328293917}
   m_Layer: 0
   m_Name: Ice Floor
-  m_TagString: Untagged
+  m_TagString: Ice Floor
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8489,7 +8489,7 @@ TilemapCollider2D:
   m_GameObject: {fileID: 1328293912}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 91e403d6edb8a8d4a8ae2297d0bb4ad8, type: 2}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -8508,6 +8508,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3347dbc9879dd9449a270e0d8062be74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 5
+  torque: 1
+  rb: {fileID: 1442760645}
+  accel: 1
 --- !u!1001 &1442760644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8606,6 +8610,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f336ff35e9ed4014093ad9007bd51b99, type: 3}
+--- !u!50 &1442760645 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 4762214171980183986, guid: f336ff35e9ed4014093ad9007bd51b99,
+    type: 3}
+  m_PrefabInstance: {fileID: 1442760644}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1688106074
 GameObject:
   m_ObjectHideFlags: 0

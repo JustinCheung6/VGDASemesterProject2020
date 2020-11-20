@@ -13,6 +13,7 @@ TagManager:
   - Hole
   - Floor1
   - Floor2
+  - Ice Floor
   layers:
   - Default
   - TransparentFX

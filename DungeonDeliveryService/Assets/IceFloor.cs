@@ -4,50 +4,19 @@ using UnityEngine;
 
 public class IceFloor : MonoBehaviour
 {
-    // Set user moveSpeed for DeliveryPerson.
-    public float moveSpeed = 5.0f;
+    // Set user speed for DeliveryPerson.
+    public float speed = 5.0f;
+    // Set slide speed for DeliveryPerson
+    //public float slideSpeed = 4.75f;
+    // Set torque for DeliveryPerson
+    public float torque = 1.0f;
+    // The type of force used
+    //ForceMode2D m_ForceMode = ForceMode2D.Force;
     // Get the Object for the DeliveryPerson
     public Rigidbody2D rb;
-    public float acceleration = 1.0f;
+    public float accel = 1.0f;
     // Set up the movement variables that will be called.
-    private float moveHorizontal, moveVertical;
-    [SerializeField] private bool animatedMovement = false;
-    //Check if player is moving by the controller
-    private bool controllerMovement = false;
-
-    public bool IsMoving { get => (animatedMovement || controllerMovement); }
-
-    // Checks if direction is disabled because of wind: 0 = Left, 1 = Down, 2 = Right, 3 = Up
-    [SerializeField] private int[] restrinctions = { 0, 0, 0, 0 };
-
-    //Stops player movement at a specfic direction
-    public void AddRestrictions(int index)
-    {
-        restrinctions[index] += 1;
-    }
-    //Stops player movement altogether
-    public void AddRestrictions()
-    {
-        rb.velocity = Vector3.zero;
-
-        for (int i = 0; i < restrinctions.Length; i++)
-        {
-            restrinctions[i] += 1;
-        }
-    }
-    //Removes a restrction from player movement at a specific direction
-    public void RemoveRestrictions(int index)
-    {
-        restrinctions[index] -= 1;
-    }
-    //Removes a restrction from player movement in all directions
-    public void RemoveRestrictions()
-    {
-        for (int i = 0; i < restrinctions.Length; i++)
-        {
-            restrinctions[i] -= 1;
-        }
-    }
+    private float moveH, moveV;
 
     // Start is called before the first frame update
     void Start()
@@ -58,56 +27,39 @@ public class IceFloor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!animatedMovement)
-        {
-            // Get the respective Horizontal and Vertical movement.
-            moveHorizontal = Input.GetAxis("Horizontal");
-            moveVertical = Input.GetAxis("Vertical");
-        }
+        // Get the respective Horizontal and Vertical movement.
+        moveH = Input.GetAxis("Horizontal");
+        moveV = Input.GetAxis("Vertical");
 
     } // Close Update
 
     private void FixedUpdate()
     {
-        if (!animatedMovement)
-        {
-            // Calculate the player's net movement.
-            Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+        // Calculate the player's net movement.
+        Vector2 movement = new Vector2(moveH, moveV);
 
-            //Check if player is moving at all
-            if (movement == Vector2.zero)
-            {
-                controllerMovement = false;
-            }
-            else
-            {
-                controllerMovement = true;
+        //GetComponent<Rigidbody2D>().AddForce(movement * speed * Time.deltaTime);
+        //GetComponent<Rigidbody2D>().AddTorque(Vector2.up * torque * moveH);
+        //GetComponent<Rigidbody2D>().AddTorque(torque * moveH);
+        rb.AddForce(movement * speed * Time.deltaTime);
+        rb.AddTorque(torque * moveH);
+        rb.AddTorque(torque * moveV);
 
-                //Set movement to zero if movement is restricted in a specific direction
-                if (movement.x < 0 && restrinctions[0] > 0)
-                    movement.x = 0;
-                else if (movement.x > 0 && restrinctions[2] > 0)
-                    movement.x = 0;
-                else
-                    //This prevents player from being affected by area effector after it's been turned off
-                    rb.velocity = new Vector2(0, rb.velocity.y);
-
-                if (movement.y < 0 && restrinctions[1] > 0)
-                    movement.y = 0;
-                else if (movement.y > 0 && restrinctions[3] > 0)
-                    movement.y = 0;
-                else
-                    //This prevents player from being affected by area effector after it's been turned off
-                    rb.velocity = new Vector2(rb.velocity.x, 0);
-            }
-
-            // Apply the actual movement
-            transform.position = ((Vector2)transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
-        }
-    }
-
-    public void WalkToDoor(Vector2 destination)
+        // if player collides with the ice floor, the player won't be able to move in another direction
+        // while on the ice
+        void OnTriggerStay2D(Collider2D collision)
     {
-        transform.position = destination;
+            if (collision.gameObject.CompareTag("Player"))
+            {
+
+                if(movement == Vector2.zero)
+                {
+                    GetComponent<Collider2D>().sharedMaterial.friction = 0.1f;
+                }
+
+                //movement = Vector2.zero;
+                //GetComponent<Collider2D>().sharedMaterial.friction = 0.1f;
+            }
     }
+  } // Close FixedUpdate
 }
