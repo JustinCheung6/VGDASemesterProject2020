@@ -8510,8 +8510,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   torque: 1
-  rb: {fileID: 1442760645}
-  accel: 1
+  rb: {fileID: 1500496131}
+  aniMovement: 0
+  restrictions: 00000000000000000000000000000000
 --- !u!1001 &1442760644
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8610,7 +8611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f336ff35e9ed4014093ad9007bd51b99, type: 3}
---- !u!50 &1442760645 stripped
+--- !u!50 &1500496131 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 4762214171980183986, guid: f336ff35e9ed4014093ad9007bd51b99,
     type: 3}
