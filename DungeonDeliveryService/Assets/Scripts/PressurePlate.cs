@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Tilemaps;
 
 public class PressurePlate : Obstacle
 {
-    [Tooltip("The door connected to the pressure plate")]
-    [SerializeField] private Door door;
+    [Tooltip("The mechanism connected to the pressure plate")]
+    [SerializeField] private Mechanism mechanism;
     [Tooltip("Whether or not the mechanism is active")]
-    [SerializeField] private BoxCollider2D BC;
+    [SerializeField] private TilemapCollider2D TC;
 
     protected override void Awake()
     {
@@ -24,7 +25,7 @@ public class PressurePlate : Obstacle
     //Activates whatever mechanism
     public override void TriggerObstacle()
     {
-        door.OpenDoor();
-        BC.enabled = false;
+        mechanism.Activate();
+        TC.enabled = false;
     }
 }
