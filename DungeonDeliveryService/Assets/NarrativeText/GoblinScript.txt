@@ -1,0 +1,81 @@
+GoblinScript
+::Null::
+*Knock* *Knock*
+
+::Goblin::
+Hmm? Who's there?
+
+::Player::
+Delivery! Got a package for some Goblins?
+
+::Goblin::
+Oh! {w=0.5}Of course, our delivery!
+
+::Player::
+Okay, an order of... Let’s see here...
+*...*
+100 gold pieces? {w=0.5}Wait why would you-
+
+::Goblin::
+Yes, yes! Bring it here, bring it here!
+Hey Tick! Our delivery is here!
+
+::Tick::
+The gold?
+
+::Goblin::
+Yeah!
+
+::Tick::
+Muehehehehe! We're rich Scab!
+
+::Scab::
+Yeah! This is amazing!
+
+::Player::
+Um, excuse me?
+
+::Scab::
+Isn’t it great? We’re rich now!
+
+::Player::
+But you haven't-
+
+::Scab::
+Oooooh, we should order more next time! And then we can-
+Hey, wait, why are you still here? You need something, delivery person?
+
+::Player::
+*...*
+Uh, no... Anyway... That’ll be... 100- wait, no, also the delivery fee... Um, that’ll be 110 gold please.
+
+::Scab::
+Oh yeah, sure. Tick? Pay the man.
+
+::Tick::
+Here ya go!
+
+
+::Null::
+*Jingle*
+
+::Scab::
+Now if you'll excuse us, we're off to have a financial meeting with all our new gold! Bye!
+
+::Tick::
+Later human! Bring us more gold next time!
+
+::Null::
+*SLAM*
+*...*
+
+::Player::
+Have a nice day? Huh... Well then, guess that’s one down anyway. What’s next?
+*mutter* *mutter*
+
+::Null::
+*crinkle*
+
+::Player::
+Ah, here we go! The next package is for a Werewolf! Wonder what he wants? Only one way to find out! Onward to deliveries and delighted customers!...
+No... {w=0.5}Still doesn’t sound right...

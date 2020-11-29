@@ -1,0 +1,85 @@
+KrakenScript
+::Player::
+Okay. That was just a little bit annoying. I REALLY hope that won’t be as bad on the return trip. 
+
+::Null::
+...
+
+::Player::
+Huh, it’s really quiet. Also kinda… dank? Hey, is that a pool over there or something? Maybe some kind of underground lake? 
+Yikes, sure hope whatever is in this package is waterproof. Something tells me the box might get a little soggy. I mean, where am I supposed to leave it anyway?
+
+::Null::
+...
+
+::Player::
+Mr. Ken! Hello! Are you here?
+
+::Null::
+...
+
+::Player::
+I’ve got your package sir!
+
+::Null::
+...
+
+::Player::
+Geez, no house, no mailbox, no note, and he’s not even down here to receive it himself! I mean, why would you leave your dungeon on the day your delivery is scheduled for?
+Don’t people realize how common dungeon pirates are? Who knows what an adventurer would do if he came this way after I leave this thing.
+
+::Null::
+...
+
+::Player::
+Well, I guess I’d better call my supervisor. Maybe he can tell me what to do. I’ll just set this package down-
+
+::Null::
+*Plop*
+
+::Player::
+-and now let’s just go ahead an call-
+
+::???::
+MRRRRRRR
+
+::Player::
+Uh… Hello?
+
+::Null::
+*Burble* *Burble*
+
+::Player::
+M-M-Mr. Ken? {w=0.5}I-Is that you?
+
+::Null::
+*SPLASH*
+
+::Player::
+Gah!
+
+::Null::
+*SLAM*
+*SQUEAK*
+
+::Player::
+Wait wha-
+
+::???::
+MRRRR
+
+::Null::
+*Burble* *Burble*
+...
+
+::Player::
+...
+
+::Null::
+*Splash*
+*Plop*
+
+::Player::
+What just...?
+Okay. {b}No.{/b} That’s it. Last package. Just taking the money, and going home, and going to sleep for the next year or something. 
+{w=0.5}Goodbye Mr. Ken.
