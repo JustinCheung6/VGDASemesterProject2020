@@ -35,7 +35,7 @@ public class Pit : Obstacle
 //            TriggerObstacle();
             if(move.onPlat==false)
             {
-                Debug.Log("Its in pit, the override trigger");
+                Debug.Log("Its in pit, the stay trigger");
                 TriggerObstacle();
             }
             else

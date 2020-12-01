@@ -16,12 +16,13 @@ public class MovingPlatform : MonoBehaviour
 
     void Start()
     {
+        leftSide = true;
         if (axis)
-        {
+        { 
             movePlatformX(false);// move right
         }
         else
-        {
+        { 
             movePlatformY(false);// move up
         }
     }
@@ -30,38 +31,22 @@ public class MovingPlatform : MonoBehaviour
     //direction false = left or down; direction true = right or up
     void Update()
     {
-        if (rightSide==false&&axis)// moves left
+        if (rightSide==false&&axis)// moves (right)
         {
             movePlatformX(false);
         }
-        else if (leftSide == false && axis)//move right
+        else if (leftSide == false && axis)//move left
         {
             movePlatformX(true);
         }
-        else if (rightSide == false && axis == false)//move down
+        else if (rightSide == false && axis == false)//move up
         {
             movePlatformY(false);
         }
-        else if (leftSide==false && axis==false)//move up
+        else if (leftSide==false && axis==false)//move down
         {
             movePlatformY(true);
         }
-//        if (leftSide&& axis)
-//        {
-//            movePlatformX(false);
-//        }
-//        else if (rightSide == true&& axis == true)
-//        {
-//            movePlatformX(true);
-//        }
-//        if (leftSide == true&& axis ==false)
-//        {
-//            movePlatformY(false);
-//        }
-//        else if (rightSide == true&& axis == false)
-//        {
-//            movePlatformY(true);
-//        }
 
     }
   //moves item direction based on editor input; movement for the platform in the x axis
@@ -80,36 +65,32 @@ public class MovingPlatform : MonoBehaviour
     //movement of the platform in the y axis
     void movePlatformY(bool direction)
     {
-        if (direction == true)
+        if (direction == false)
         {
             //below has a Time.deltaTime, but didnt seem like it was needed so left it be
             transform.position = transform.position + new Vector3(0,movement,0);
         } 
-        else if (direction == false)
+        else if (direction)
         {
             transform.position = transform.position + new Vector3(0,  -movement, 0);
         }
     }
-    //collision is for the colliders to control the boundary
-    public void OnCollisionEnter2D(Collision2D other)
-    {
-        if (other.gameObject.CompareTag("PlatformCollider")&&rightSide ==false)//switch to negative(left/down)
-        {
-            Debug.Log("Collided with rightcollider");
-            rightSide = true;
-            leftSide = false;
-        }
-        else if (other.gameObject.CompareTag("PlatformCollider") && leftSide == false)//switch to positive(right/up)
-        {
-            Debug.Log("Collided with leftcollider");
-            leftSide = true;
-            rightSide = false;
-        }
-        
-    }
+    //collision is for the colliders to control the boundary and
     //player goes onto the moving platform
     protected void OnTriggerEnter2D(Collider2D c)
     {
+        if (c.gameObject.CompareTag("ColliderPlat")&&rightSide ==false)//switch to negative(left/down)
+        {
+            //Debug.Log("Collided with rightcollider");
+            rightSide = true;
+            leftSide = false;
+        }
+        else if (c.gameObject.CompareTag("ColliderPlat") && leftSide == false)//switch to positive(right/up)
+        {
+            // Debug.Log("Collided with leftcollider");
+            leftSide = true;
+            rightSide = false;
+        }
         Debug.Log("activates onPlat statement to true");
         if (c.gameObject.CompareTag("Player"))
         {

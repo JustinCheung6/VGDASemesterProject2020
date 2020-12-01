@@ -14,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool animatedMovement = false;
     //Check if player is moving by the controller
     private bool controllerMovement = false;
+    public float platformMove;
 
     public bool IsMoving { get => (animatedMovement || controllerMovement); }
 

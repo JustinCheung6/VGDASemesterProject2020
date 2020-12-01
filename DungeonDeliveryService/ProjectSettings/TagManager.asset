@@ -14,7 +14,7 @@ TagManager:
   - Floor1
   - Floor2
   - Platform
-  - PlatformCollider
+  - ColliderPlat
   layers:
   - Default
   - TransparentFX
