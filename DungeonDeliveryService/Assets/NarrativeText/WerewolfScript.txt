@@ -1,0 +1,106 @@
+WerewolfScript
+::Player::
+Alright, looks like this is where the second package is supposed to go.
+Huh, don't see anyone here. Can't just leave it here though. Maybe there's a mailbox around?
+
+::???::
+*Growl*
+
+::Player::
+Huh?!
+
+::???::
+*Growl*
+
+::Player::
+W-w-Who's there? Where are you?
+
+::Werewolf::
+*ROAR*
+
+::Player::
+Ah! Wait, hold on! I’m, uh, I’m just here to deliver a package! Please!
+
+::Werewolf::
+*Growl*
+
+::Player::
+Oh man, I really don’t want to do this, but... Package! {w=0.5}I choose you! Hiyah!
+
+::Null::
+*Plonk*
+
+::Werewolf::
+*ROAR*
+
+::Player::
+Well, that didn’t go as well as I hoped it would.
+
+::Werewolf::
+*Snarl*
+
+::Player::
+Uh... Can we talk about this, please?
+
+::Werewolf::
+Grr-
+Hmm?
+
+::Player::
+Huh? Oh, the package? Oh yeah, the package! That’s for you! C'mon! Get it!
+
+::Werewolf::
+*Sniff* *Sniff* *Growl*
+...
+!!!
+
+::Null::
+*Rip* *Tear*
+
+::Player::
+Woah! You must’ve really been wanting whatever was in-
+
+::Null::
+...
+
+::Player::
+-there... A tennis ball? Really?
+
+::Werewolf::
+*Pant* *Pant* *Whine*
+
+::Player::
+You uh, want me to... Throw it for you?
+
+::Werewolf::
+Mhm! Mhm! Mhm! *Bark*
+
+::Player::
+Alright, I guess there’s no stipulation {i}against{/i} playing with clients for a bit!
+Alright boy! Go fetch boy!
+
+::Werewolf::
+*Bark* *Yip* *Bark*
+
+::Player::
+Good boy! Good- Uh... What are you doing?
+
+::Werewolf::
+*Whimper* *Whimper*
+
+::Player::
+You want... Belly rubs?
+
+::Werewolf::
+*Bark*
+
+::Player::
+Aaaaaand this is getting weird now... Uh... Here! Go fetch again!
+
+::Werewolf::
+*Bark* *Bark*
+
+::Player::
+Okay, that should keep him for a few minutes.
+That was weird, but there’s no time to dwell on that. Just gotta keep going!
+Let’s see, the next package should be going... This way!

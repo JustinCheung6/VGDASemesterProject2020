@@ -1,0 +1,148 @@
+NecromancerScript
+::Player::
+Yeesh, this is really starting to get hard. Shouldn’t this be getting {i}easier{/i} the more packages I deliver?
+
+::Null::
+...
+
+::Player::
+Huh… This place seems… Off. 
+
+::???::
+Mo’graffo kiinerko resh va hatrol vokk…
+
+::Player::
+{w=0.5}Really off.
+What was? Some sort of weird chanting?
+I mean, I guess I should still knock. Gosh, I hope whoever that is doesn’t mind the interruption.
+
+::Null::
+*Knock* *Knock*
+
+::???::
+...
+
+::Player::
+Hello?
+
+::Null::
+...
+{w=0.5}*Knock* *Knock*
+
+::???::
+Hmph...
+
+::Player::
+Uh, hello? Sir? {size=8}I hope you’re a “sir.”{/size}
+
+::???::
+Who are you, to have come to my abode?
+
+::Player::
+Um...
+
+::???::
+Are you a lowly peasant? Perhaps you were curious where this cave led to? Or could you be some simple-minded hero? 
+Are you here to destroy the evil which I have wrought upon this world?
+
+::Player::
+The what now?
+
+::???::
+Be warned fool. You are dealing with powers stronger than you could ever realize.
+I harness the primal forces that built this world and which still hold this world together.
+My darkness has torn the light from thousands of warriors, paladins and priests.
+
+::Player::
+Uh, sir?
+
+::???::
+{b}I HAVE DEFILED AND DEFIED GODS! I AM THE DESTROYER OF-{/b}
+
+::Player::
+Sir, I'm just here to deliver your package.
+
+::???::
+...
+Ah... {w=0.05}I See...
+
+::Player::
+So, could you just-
+
+::???::
+Hu’grath, poutah!
+
+::Null::
+*Creak*
+
+::Necromancer::
+You have my package, do you?
+
+::Player::
+Yes sir, it’s right here! That’ll be… Wait… 50 MILLION GOLD?
+
+::Necromancer::
+Ah, ah, ah. I already payed that in advance. I believer I jsut owe you the 10 gold delivery fee.
+*Snap*
+
+::Null::
+*Clank*
+
+::Player::
+O-oh... Okay. Yeah, that covers totally covers it.
+Phew! I was about to have a heart attack thinking of how to carry all that!
+
+::Necromancer::
+Yes, of course you were. The package?
+
+::Player::
+Oh, right! Here you are sir!
+
+::Necromancer::
+Yes… Excellent! With this, my plans will finally be completed! Muahahaha!
+
+::Player::
+Hey, if you don’t mind me asking: What kind of book costs 50 million gold?
+
+::Necromancer::
+Hmph, of course someone of your caliber hasn’t heard of it. This, my friend, is the first book of evil. The container of all things heinous in the world of literacy! 
+Why, this has the power to bend the very world to its reader’s will! This, my friend, is the…
+
+::Null::
+...
+
+::Necromancer::
+NECRONOMICON!
+MUAHAHAHAHA!
+
+::Player::
+Ah, yes! I see! I {i}totally{/i} understand the Necronomicon!I absolutely love the part about the, ya know, smiting people and stuff, eh?
+
+::Necromancer::
+...
+
+::Player::
+Well sir, I’d love to nerd out with you about evil books, but I’m afraid I just gotta finish up my deliveries!
+
+::Necromancer::
+Good. Have a nice day.
+
+::Player::
+You-
+
+::Necromancer::
+Ho'greeth for'ato!
+
+::Null::
+*SLAM*
+
+::Player::
+-too... Huh...
+Did the DDS have a code of ethics? I don’t remember having to sign one. I should proooooobably ask about that when I get back. 
+Best to think about that later though, I’ve only got one package left! 
+Just the one addressed to Mr. K.R. Ken. 
+At least that name sounds relatively normal. Better get going!
+Packages Ho!
+...
+Okay, I think I'm actually getting worse at these inspirational delivery cries.
+

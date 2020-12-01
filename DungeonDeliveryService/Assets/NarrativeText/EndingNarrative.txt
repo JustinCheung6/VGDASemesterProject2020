@@ -1,0 +1,26 @@
+EndingNarrative
+::Player::
+And so, my first day as an employee for the Dungeon Delivery Service officially comes to a close. 
+{w=.05}What. {w=.05}A. {w=.05}Day.
+Not gonna lie, it wasn’t exactly what I was expecting.
+Economically unaware goblins. 
+A rather fetching werewolf. 
+Perverted storage containers. 
+An eccentric evil old man, and... 
+Um...
+Ancient calamari, I guess.
+Look, I knew working for the DDS was going to end with me encountering a lot of strange folks, but that? Seems like a little bit much for my first time on the job, ya know?
+And those puzzles? Yeesh.
+Whose idea was it to install a giant wind passage anyway? And someone really has to do something about all those rickety bridges.
+I guess it was pretty interesting, though. Just because things were a little bit rough, doesn’t mean it wasn’t kinda fun too, right?
+Without rough patches, everything would be too easy and expected. Gotta have those odd moments to shake things up, eh?
+I mean, if adventurers are going to be making their way through here at some point, I guess stocking the dungeons ought to be its own adventure too!
+Sure, it might not be the same as wandering around vanquishing darkness as a paladin, or as shooting giant fire and ice storms as a wizard-
+-but I can’t deny that it’s a lot more unique from this angle.
+Who knows what treasures I’ll be able to deliver next?
+Whatever they are, I hope they're good ones!
+...
+Thanks for playing!
+
+::Null::
+{i}~Fin{/i}
