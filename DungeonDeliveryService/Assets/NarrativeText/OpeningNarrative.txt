@@ -1,0 +1,34 @@
+OpeningNarrative
+::Null::
+{i}Dungeons: {w=0.5}Nothing is more synonymous with the art of adventuring.{/i}
+{i}Most adventurers seek out dungeons for two reasons: Monsters & Treasure.{/i}
+{i}Slaying foes and claiming their loot is what all great warriors strive for.{/i}
+{i}But one question is always left to be asked by novices in the adventuring field:{/i} {w=0.5}how do monsters get loot in the first place?{/i}
+{i}Sure, some comes from fallen adventures from failed expeditions, but what treasure were those adventurers seeking?{/i}
+{i}Obviously there had to have already been something there, just waiting for a brave hero to find it!{/i}
+{i}That is where we here at Dungeon Delivery Services (DDS for short) come in.{/i}
+{i}From decrepit daggers to apocalyptic artifacts, DDS has it all. Our company prides itself for its ability to accommodate any monster’s needs.{/i}
+{i}So, if you’re a monster who wishes they had loot to make the heroes swoon, you know who to call! If your dungeon needs it, we can deliver it!{/i}
+{i}Indeed, were it not for the DDS, no quest would hardly be half the activity they are today.{/i}
+
+::Null::
+...
+...
+...
+
+::Player::
+Alright, this is the dungeon. Oh man, time for my first official delivery as a DDS employee! This is gonna be great!
+Okay, settle down man, keep it smooth. You’re a professional now! Management won’t like it if we mess around on our first day after all.
+Just get in there, deliver those packages, and get out before! So, let’s see here…
+
+::Null::
+*Rustle* *Rustle*
+
+::Player::
+Okay, one main delivery for a… K. R. Ken? Alright then. Package seems light enough, shouldn’t be too hard.
+Oh! Got a few side deliveries too. Looks like they’re all on the way, so I should take care of those first! Good thing I remembered them!
+Looks like this first one is addressed to some Goblins. Better get on it then! Onward ho!
+...
+{size=8}Note to self: make a better catchphrase…{/size}
+
+

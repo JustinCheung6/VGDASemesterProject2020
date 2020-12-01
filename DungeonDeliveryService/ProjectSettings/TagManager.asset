@@ -13,6 +13,8 @@ TagManager:
   - Hole
   - Floor1
   - Floor2
+  - Platform
+  - ColliderPlat
   layers:
   - Default
   - TransparentFX
@@ -23,9 +25,9 @@ TagManager:
   - 
   - 
   - Camera Room
-  - 
-  - 
-  - 
+  - PlatColl
+  - Platform
+  - Player
   - 
   - 
   - 
