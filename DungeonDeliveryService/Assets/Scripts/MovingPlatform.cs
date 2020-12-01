@@ -88,6 +88,7 @@ public class MovingPlatform : Obstacle
         onPlat = storePlat;
         leftSide = storeLeft;
         rightSide = storeRight;
+        animate.SetBool("Weight", false);
         this.gameObject.SetActive(true);
     }
 
@@ -159,8 +160,7 @@ public class MovingPlatform : Obstacle
                 TriggerObstacle();
             else if (player.getWeight() < weightTrigger)
             {
-                animate.SetBool("Weight",true);
-                Debug.Log(animate.GetBool("Weight") );
+                animate.SetBool("Weight", true);
                 StartCoroutine("Destroy");
             }
             onPlat = true;
