@@ -9,6 +9,7 @@ public class PressurePlate : Obstacle
     [SerializeField] private Mechanism mechanism;
     [Tooltip("Whether or not the mechanism is active")]
     [SerializeField] private TilemapCollider2D TC;
+    [SerializeField] private bool needsContinuous;
 
     protected override void Awake()
     {
@@ -17,15 +18,38 @@ public class PressurePlate : Obstacle
         weightTrigger = 1;
     }
 
+    //Checks if object is a moving block or player object
+    //player needs certain weight to trigger, blocks always trigger
     protected override void OnTriggerEnter2D(Collider2D c)
     {
-        base.OnTriggerEnter2D(c);
+        if (c.gameObject.GetComponent<MovableBlock>())
+        {
+            TriggerObstacle();
+        }
+        else
+        {
+            base.OnTriggerEnter2D(c);
+        }
     }
 
-    //Activates whatever mechanism
+    //Disable connected mechanism if the pressure plate requires a continous force
+    public void OnTriggerExit2D(Collider2D c)
+    {
+        if (needsContinuous)
+        {
+            DisableObstacle();
+        }
+    }
+
+    //Activates the connected mechanism
     public override void TriggerObstacle()
     {
         mechanism.Activate();
-        TC.enabled = false;
+    }
+
+    //Deactivates the connected mechanism
+    public void DisableObstacle()
+    {
+        mechanism.Deactivate();
     }
 }
