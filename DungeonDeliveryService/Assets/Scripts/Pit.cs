@@ -18,12 +18,7 @@ public class Pit : Obstacle
 //            TriggerObstacle();
             if(move.onPlat==false)
             {
-                Debug.Log("Its in pit, the override trigger");
                 TriggerObstacle();
-            }
-            else
-            {
-                Debug.Log("Its onPlat, no trigger");
             }
         }
     }
@@ -35,12 +30,7 @@ public class Pit : Obstacle
 //            TriggerObstacle();
             if(move.onPlat==false)
             {
-                Debug.Log("Its in pit, the stay trigger");
                 TriggerObstacle();
-            }
-            else
-            {
-                Debug.Log("Its onPlat, no trigger");
             }
         }
     }

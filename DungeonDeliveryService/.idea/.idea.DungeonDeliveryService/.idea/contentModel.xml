@@ -912,6 +912,16 @@
             </e>
           </e>
         </e>
+        <e p="IceFloor.cs" t="Include" />
+        <e p="NarrativeText" t="Include">
+          <e p="EndingNarrative.txt" t="Include" />
+          <e p="GoblinScript.txt" t="Include" />
+          <e p="KrakenScript.txt" t="Include" />
+          <e p="MimicScript.txt" t="Include" />
+          <e p="NecromancerScript.txt" t="Include" />
+          <e p="OpeningNarrative.txt" t="Include" />
+          <e p="WerewolfScript.txt" t="Include" />
+        </e>
         <e p="Scripts" t="Include">
           <e p="Bridge.cs" t="Include" />
           <e p="Camera" t="Include">
@@ -926,13 +936,26 @@
           <e p="HoleObstacle.cs" t="Include" />
           <e p="Inventory.cs" t="Include" />
           <e p="Key.cs" t="Include" />
+          <e p="Mechanism.cs" t="Include" />
           <e p="MovingPlatform.cs" t="Include" />
+          <e p="Narrative" t="Include">
+            <e p="Character_Fungus.cs" t="Include" />
+            <e p="FungusManager.cs" t="Include" />
+            <e p="GameStarted_FungusEH.cs" t="Include" />
+            <e p="MessageReceived_FungusEH.cs" t="Include" />
+            <e p="Say_FungusCommand.cs" t="Include" />
+            <e p="StoryManager.cs" t="Include" />
+            <e p="StoryManager_Old.cs" t="Include" />
+            <e p="Wait_FungusCommand.cs" t="Include" />
+          </e>
+          <e p="NarrativeManager.cs" t="Include" />
           <e p="Obstacle.cs" t="Include" />
           <e p="PauseMenu.cs" t="Include" />
           <e p="Pit.cs" t="Include" />
           <e p="Player.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PressurePlate.cs" t="Include" />
+          <e p="SealedDoor.cs" t="Include" />
           <e p="SnowPile.cs" t="Include" />
           <e p="Stairs.cs" t="Include" />
           <e p="Weight Count.cs" t="Include" />
