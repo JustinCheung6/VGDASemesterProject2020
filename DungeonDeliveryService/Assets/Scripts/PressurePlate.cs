@@ -8,7 +8,6 @@ public class PressurePlate : Obstacle
     [Tooltip("The mechanism connected to the pressure plate")]
     [SerializeField] private Mechanism mechanism;
     [Tooltip("Whether or not the mechanism is active")]
-    [SerializeField] private TilemapCollider2D TC;
     [SerializeField] private bool needsContinuous;
 
     protected override void Awake()
