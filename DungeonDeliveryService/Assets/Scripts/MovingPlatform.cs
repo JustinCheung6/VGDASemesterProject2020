@@ -24,9 +24,6 @@ public class MovingPlatform : Obstacle
     public float untilDestroyed;
     Animator animate;
 
-    [SerializeField] private GameObject playerMGO;
-    private PlayerMovement playerM;
-
     private bool storePlat;
     private Vector2 storeLoc;
     private bool storeLeft;
@@ -57,7 +54,6 @@ public class MovingPlatform : Obstacle
     void Start()
     {
         animate = GetComponent<Animator>();
-        playerM = playerMGO.GetComponent<PlayerMovement>();
         
         storePlat = onPlat;
         storeLeft = leftSide;
@@ -107,7 +103,7 @@ public class MovingPlatform : Obstacle
             
             if (onPlat)
             {
-                playerM.transform.position += new Vector3(movement,0,0) * Time.fixedDeltaTime;
+                PlayerMovement.singleton.AddTempForce(new Vector3(movement,0,0) * Time.fixedDeltaTime);
             }
         } 
         else if (direction)
@@ -116,7 +112,7 @@ public class MovingPlatform : Obstacle
             
             if (onPlat)
             {
-                playerM.transform.position =  new Vector3( -movement, 0,0) * Time.fixedDeltaTime;
+                PlayerMovement.singleton.AddTempForce(new Vector3( -movement, 0,0) * Time.fixedDeltaTime);
             }
       
         }
@@ -129,7 +125,7 @@ public class MovingPlatform : Obstacle
             transform.position = (Vector2)transform.position + new Vector2(0,movement);
             if (onPlat)
             {
-                playerM.transform.position += new Vector3(0,movement,0)*Time.fixedDeltaTime;
+                PlayerMovement.singleton.AddTempForce(new Vector3(0,movement,0)*Time.fixedDeltaTime);
             }
         } 
         else if (direction)
@@ -137,7 +133,7 @@ public class MovingPlatform : Obstacle
             transform.position =  (Vector2)transform.position + new Vector2(0,  -movement);
             if (onPlat)
             {
-                playerM.transform.position +=  new Vector3(0,  -movement,0)* Time.fixedDeltaTime;
+                PlayerMovement.singleton.AddTempForce(new Vector3(0,  -movement,0)* Time.fixedDeltaTime);
             }
         }
     }
