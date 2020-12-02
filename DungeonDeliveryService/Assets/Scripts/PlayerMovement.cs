@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement singleton;
+
     // Set user moveSpeed for DeliveryPerson.
     public float moveSpeed = 5.0f;
     // Get the Object for the DeliveryPerson
@@ -14,8 +16,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool animatedMovement = false;
     //Check if player is moving by the controller
     private bool controllerMovement = false;
-    private MovingPlatform platformMove;
-   [SerializeField] private GameObject platformMoveGO;
+
+    //Forces from other scripts (reset on FixedUpdate)
+    private Vector2 tempExternal = new Vector2();
+    private Dictionary<string, Vector2> externalForces = new Dictionary<string, Vector2>();
+    private Vector2 constantExternal = new Vector2();
 
     public bool IsMoving { get => (animatedMovement || controllerMovement); }
 
@@ -51,12 +56,53 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    //Adds tempoarary Movement to Player from external scripts
+    public void AddTempForce(Vector2 positionUpdate)
+    {
+        tempExternal += positionUpdate;
+    }
+    //Add a force that will constantly move the player (Transform.position, Fixed Update)
+    public void AddConstForce(string id, Vector2 positionUpdate)
+    {
+        if (externalForces.ContainsKey(id))
+            Debug.Log("ID: " + id + " already exists in PlayerMovement");
+        else
+        {
+            externalForces.Add(id, positionUpdate);
+            constantExternal += positionUpdate;
+        }
+    }
+    //Remove a force that was added by giving its previously used id
+    public void RemoveConstForce(string id)
+    {
+        if (!externalForces.ContainsKey(id))
+            Debug.Log("ID: " + id + " can't be found in PlayerMovement");
+        else
+        {
+            constantExternal -= externalForces[id];
+            externalForces.Remove(id);
+            
+        }
+        
+    }
+
+    private void Awake()
+    {
+        //Setup Singleton
+        if(singleton == null)
+        {
+            singleton = this;
+        }
+        else if (singleton != this)
+        {
+            Debug.Log("Multiple PlayerMovements Scripts found Saved: " + singleton.name + ", Unsaved Copy: " + this.name);
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         Vector2 currentPosition = transform.position;
-        if(platformMoveGO != null)
-            platformMove = platformMoveGO.GetComponent<MovingPlatform>();
     } 
 
     // Update is called once per frame
@@ -77,10 +123,6 @@ public class PlayerMovement : MonoBehaviour
         {
             // Calculate the player's net movement.
             Vector2 movement = new Vector2(moveHorizontal, moveVertical);
-
-            //Add platform movement if player is on platform
-            if (platformMove != null && platformMove.onPlat)
-                movement += (platformMove.playMove);
 
             //Check if player is moving at all
             if (movement == Vector2.zero)
@@ -110,7 +152,9 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // Apply the actual movement
-            transform.position =  (Vector2)transform.position + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
+            transform.position = ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f) + tempExternal + constantExternal;
+            tempExternal = new Vector2();
+
         }
     } 
 

@@ -937,6 +937,7 @@
           <e p="Inventory.cs" t="Include" />
           <e p="Key.cs" t="Include" />
           <e p="Mechanism.cs" t="Include" />
+          <e p="MovableBlock.cs" t="Include" />
           <e p="MovingPlatform.cs" t="Include" />
           <e p="Narrative" t="Include">
             <e p="Character_Fungus.cs" t="Include" />
@@ -955,6 +956,7 @@
           <e p="Player.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PressurePlate.cs" t="Include" />
+          <e p="ProgressManager.cs" t="Include" />
           <e p="SealedDoor.cs" t="Include" />
           <e p="SnowPile.cs" t="Include" />
           <e p="Stairs.cs" t="Include" />
