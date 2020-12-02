@@ -55,7 +55,8 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Vector2 currentPosition = transform.position;
-        platformMove = platformMoveGO.GetComponent<MovingPlatform>();
+        if(platformMoveGO != null)
+            platformMove = platformMoveGO.GetComponent<MovingPlatform>();
     } 
 
     // Update is called once per frame
@@ -76,6 +77,10 @@ public class PlayerMovement : MonoBehaviour
         {
             // Calculate the player's net movement.
             Vector2 movement = new Vector2(moveHorizontal, moveVertical);
+
+            //Add platform movement if player is on platform
+            if (platformMove != null && platformMove.onPlat)
+                movement += (platformMove.playMove);
 
             //Check if player is moving at all
             if (movement == Vector2.zero)
@@ -105,16 +110,7 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // Apply the actual movement
-            if (platformMove.onPlat)
-            {
-                transform.position = (platformMove.playMove) + ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
-            }
-            else
-            {
-                transform.position =
-                    ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
-            }
-
+            transform.position =  (Vector2)transform.position + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
         }
     } 
 
