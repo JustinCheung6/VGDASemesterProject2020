@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public static PlayerMovement singleton;
+
     // Set user moveSpeed for DeliveryPerson.
     public float moveSpeed = 5.0f;
     // Get the Object for the DeliveryPerson
@@ -15,7 +17,10 @@ public class PlayerMovement : MonoBehaviour
     //Check if player is moving by the controller
     private bool controllerMovement = false;
 
-   // public bool onPlatform;
+    //Forces from other scripts (reset on FixedUpdate)
+    private Vector2 tempExternal = new Vector2();
+    private List<string> externalForces = new List<string>();
+    private Vector2 constantExternal = new Vector2();
 
     public bool IsMoving { get => (animatedMovement || controllerMovement); }
 
@@ -48,6 +53,46 @@ public class PlayerMovement : MonoBehaviour
         for (int i = 0; i < restrinctions.Length; i++)
         {
             restrinctions[i] -= 1;
+        }
+    }
+
+    //Adds tempoarary Movement to Player from external scripts
+    public void AddTempForce(Vector2 positionUpdate)
+    {
+        tempExternal += positionUpdate;
+    }
+    public void AddConstForce(Vector2 positionUpdate, string id)
+    {
+        if (externalForces.Contains(id))
+            Debug.Log("ID: " + id + " already exists in PlayerMovement");
+        else
+        {
+            externalForces.Add(id);
+            constantExternal += positionUpdate;
+        }
+    }
+    public void RemoveConstForce(Vector2 positionUpdate, string id)
+    {
+        if (!externalForces.Contains(id))
+            Debug.Log("ID: " + id + " can't be found in PlayerMovement");
+        else
+        {
+            externalForces.Remove(id);
+            constantExternal -= positionUpdate;
+        }
+        
+    }
+
+    private void Awake()
+    {
+        //Setup Singleton
+        if(singleton == null)
+        {
+            singleton = this;
+        }
+        else if (singleton != this)
+        {
+            Debug.Log("Multiple PlayerMovements Scripts found Saved: " + singleton.name + ", Unsaved Copy: " + this.name);
         }
     }
 
@@ -104,8 +149,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // Apply the actual movement
-            transform.position = ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
-            
+            transform.position = ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f) + tempExternal + constantExternal;
+            tempExternal = new Vector2();
 
         }
     } 
