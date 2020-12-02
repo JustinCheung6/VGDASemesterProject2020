@@ -14,8 +14,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool animatedMovement = false;
     //Check if player is moving by the controller
     private bool controllerMovement = false;
-    private MovingPlatform platformMove;
-   [SerializeField] private GameObject platformMoveGO;
+
+   // public bool onPlatform;
 
     public bool IsMoving { get => (animatedMovement || controllerMovement); }
 
@@ -55,7 +55,6 @@ public class PlayerMovement : MonoBehaviour
     void Start()
     {
         Vector2 currentPosition = transform.position;
-        platformMove = platformMoveGO.GetComponent<MovingPlatform>();
     } 
 
     // Update is called once per frame
@@ -105,15 +104,8 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // Apply the actual movement
-            if (platformMove.onPlat)
-            {
-                transform.position = (platformMove.playMove) + ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
-            }
-            else
-            {
-                transform.position =
-                    ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
-            }
+            transform.position = ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f);
+            
 
         }
     } 
