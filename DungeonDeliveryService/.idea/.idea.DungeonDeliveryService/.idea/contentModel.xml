@@ -955,6 +955,7 @@
           <e p="Player.cs" t="Include" />
           <e p="PlayerMovement.cs" t="Include" />
           <e p="PressurePlate.cs" t="Include" />
+          <e p="ProgressManager.cs" t="Include" />
           <e p="SealedDoor.cs" t="Include" />
           <e p="SnowPile.cs" t="Include" />
           <e p="Stairs.cs" t="Include" />

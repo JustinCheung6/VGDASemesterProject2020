@@ -1,23 +1,19 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class Pit : Obstacle
 {
-    [SerializeField]private GameObject moveGO;
-    private MovingPlatform move;
-    void Start()
-    {
-        move = moveGO.GetComponent<MovingPlatform>();
-    }
+    public bool platform;
     protected override void OnTriggerEnter2D(Collider2D c)
     {
         if (c.gameObject.CompareTag("Player"))
         {
-//            TriggerObstacle();
-            if(move.onPlat==false)
+            if(platform==false)
             {
+                Debug.Log(" enter: Move.onPlat == false");
                 TriggerObstacle();
             }
         }
@@ -27,9 +23,9 @@ public class Pit : Obstacle
     {
         if (c.gameObject.CompareTag("Player"))
         {
-//            TriggerObstacle();
-            if(move.onPlat==false)
+            if(platform==false)
             {
+                Debug.Log("stay: Move.onPlat == false");
                 TriggerObstacle();
             }
         }

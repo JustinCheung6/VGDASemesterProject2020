@@ -3734,7 +3734,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weightTrigger: 1
   criteria: 0
-  moveGO: {fileID: 1975114974}
+  platform: 0
 --- !u!19719996 &1594650512
 TilemapCollider2D:
   m_ObjectHideFlags: 0
@@ -4206,9 +4206,10 @@ MonoBehaviour:
   axis: 1
   movement: 2
   onPlat: 0
-  playMove: {x: 0, y: 0}
   untilDestroyed: 5
+  platformAnim: {fileID: 1346182173}
   playerMGO: {fileID: 1630286011}
+  pitGO: {fileID: 1594650509}
 --- !u!61 &1975114978
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4353,9 +4354,10 @@ MonoBehaviour:
   axis: 1
   movement: 2
   onPlat: 0
-  playMove: {x: 0, y: 0}
   untilDestroyed: 5
+  platformAnim: {fileID: 1015869163}
   playerMGO: {fileID: 1630286011}
+  pitGO: {fileID: 1594650509}
 --- !u!61 &2047505967
 BoxCollider2D:
   m_ObjectHideFlags: 0
