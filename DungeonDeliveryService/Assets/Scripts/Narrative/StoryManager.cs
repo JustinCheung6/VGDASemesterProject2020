@@ -5,10 +5,25 @@ using Fungus;
 
 public class StoryManager : MonoBehaviour
 {
-    Dictionary<int, Block> narrativeBeats;
+    private Flowchart flowchart = null;
 
     private void Start()
     {
-        GetComponent<Flowchart>().ExecuteIfHasBlock("EndingNarrative");
+        flowchart = GetComponent<Flowchart>();
+
+        if(ProgressManager.Get != null)
+        {
+            flowchart.StopAllBlocks();
+            flowchart.ExecuteIfHasBlock(ProgressManager.Get.CurrentScript);
+        }
+        StartCoroutine(ReturnToGame());
+    }
+
+    private IEnumerator ReturnToGame()
+    {
+        yield return new WaitUntil(() => !flowchart.HasExecutingBlocks());
+        yield return new WaitForSeconds(1);
+
+        ProgressManager.Get.GoToScene(ProgressManager.Scenes.Game);
     }
 }
