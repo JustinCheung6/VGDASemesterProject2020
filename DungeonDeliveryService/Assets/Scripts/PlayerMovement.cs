@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 
     //Forces from other scripts (reset on FixedUpdate)
     private Vector2 tempExternal = new Vector2();
-    private List<string> externalForces = new List<string>();
+    private Dictionary<string, Vector2> externalForces = new Dictionary<string, Vector2>();
     private Vector2 constantExternal = new Vector2();
 
     public bool IsMoving { get => (animatedMovement || controllerMovement); }
@@ -61,24 +61,27 @@ public class PlayerMovement : MonoBehaviour
     {
         tempExternal += positionUpdate;
     }
-    public void AddConstForce(Vector2 positionUpdate, string id)
+    //Add a force that will constantly move the player (Transform.position, Fixed Update)
+    public void AddConstForce(string id, Vector2 positionUpdate)
     {
-        if (externalForces.Contains(id))
+        if (externalForces.ContainsKey(id))
             Debug.Log("ID: " + id + " already exists in PlayerMovement");
         else
         {
-            externalForces.Add(id);
+            externalForces.Add(id, positionUpdate);
             constantExternal += positionUpdate;
         }
     }
-    public void RemoveConstForce(Vector2 positionUpdate, string id)
+    //Remove a force that was added by giving its previously used id
+    public void RemoveConstForce(string id)
     {
-        if (!externalForces.Contains(id))
+        if (!externalForces.ContainsKey(id))
             Debug.Log("ID: " + id + " can't be found in PlayerMovement");
         else
         {
+            constantExternal -= externalForces[id];
             externalForces.Remove(id);
-            constantExternal -= positionUpdate;
+            
         }
         
     }
