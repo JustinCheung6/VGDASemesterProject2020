@@ -18,11 +18,14 @@ public class MovingPlatform : Obstacle
     private bool timer = false;
     //checks if the player is on the platform
     public bool onPlat = false;
-    //transform input for the player to use
-    public Vector2 playMove;
     //time left until the platform is destroyed
     public float untilDestroyed;
     Animator animate;
+    
+    public GameObject platformAnim;
+    [SerializeField] private GameObject pitGO;
+    private Pit pit;
+
 
     private bool storePlat;
     private Vector2 storeLoc;
@@ -54,7 +57,8 @@ public class MovingPlatform : Obstacle
     void Start()
     {
         animate = GetComponent<Animator>();
-        
+        pit = pitGO.GetComponent<Pit>();
+
         storePlat = onPlat;
         storeLeft = leftSide;
         storeRight = rightSide;
@@ -90,7 +94,10 @@ public class MovingPlatform : Obstacle
         leftSide = storeLeft;
         rightSide = storeRight;
         animate.SetBool("Weight", false);
-        this.gameObject.SetActive(true);
+        GetComponent<Renderer>().enabled = true;
+        GetComponent<BoxCollider2D>().enabled = true;
+        platformAnim.GetComponent<Renderer>().enabled = true;
+
     }
 
     //moves item direction based on editor input; movement for the platform in the x axis
@@ -165,6 +172,8 @@ public class MovingPlatform : Obstacle
                 StartCoroutine("Destroy");
             }
             onPlat = true;
+            pit.platform = true;
+
         }
     }
     //player goes off the moving platform
@@ -173,11 +182,16 @@ public class MovingPlatform : Obstacle
         if (c.gameObject.CompareTag("Player"))
         {
             onPlat = false;
+            pit.platform = false;
+
         }
     }
 
     public override void TriggerObstacle()
     {
-        this.gameObject.SetActive(false);
+        GetComponent<Renderer>().enabled = false;
+        GetComponent<BoxCollider2D>().enabled = false;
+        platformAnim.GetComponent<Renderer>().enabled = false;
+
     }
 }

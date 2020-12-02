@@ -4096,12 +4096,6 @@ Tilemap:
     e31: 0
     e32: 0
     e33: 1
---- !u!1 &1630286011 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 62699718217915960, guid: f336ff35e9ed4014093ad9007bd51b99,
-    type: 3}
-  m_PrefabInstance: {fileID: 1259108728}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1975114974
 GameObject:
   m_ObjectHideFlags: 0
@@ -4208,7 +4202,6 @@ MonoBehaviour:
   onPlat: 0
   untilDestroyed: 5
   platformAnim: {fileID: 1346182173}
-  playerMGO: {fileID: 1630286011}
   pitGO: {fileID: 1594650509}
 --- !u!61 &1975114978
 BoxCollider2D:
@@ -4356,7 +4349,6 @@ MonoBehaviour:
   onPlat: 0
   untilDestroyed: 5
   platformAnim: {fileID: 1015869163}
-  playerMGO: {fileID: 1630286011}
   pitGO: {fileID: 1594650509}
 --- !u!61 &2047505967
 BoxCollider2D:

@@ -937,6 +937,7 @@
           <e p="Inventory.cs" t="Include" />
           <e p="Key.cs" t="Include" />
           <e p="Mechanism.cs" t="Include" />
+          <e p="MovableBlock.cs" t="Include" />
           <e p="MovingPlatform.cs" t="Include" />
           <e p="Narrative" t="Include">
             <e p="Character_Fungus.cs" t="Include" />
