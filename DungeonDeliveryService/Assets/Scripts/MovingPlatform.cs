@@ -125,7 +125,7 @@ public class MovingPlatform : Obstacle
             transform.position = (Vector2)transform.position + new Vector2(0,movement);
             if (onPlat)
             {
-                playerM.transform.position += new Vector3(0,movement,0)*Time.fixedDeltaTime;
+                PlayerMovement.singleton.AddTempForce(new Vector3(0,movement,0)*Time.fixedDeltaTime);
             }
         } 
         else if (direction)
@@ -133,7 +133,7 @@ public class MovingPlatform : Obstacle
             transform.position =  (Vector2)transform.position + new Vector2(0,  -movement);
             if (onPlat)
             {
-                playerM.transform.position +=  new Vector3(0,  -movement,0)* Time.fixedDeltaTime;
+                PlayerMovement.singleton.AddTempForce(new Vector3(0,  -movement,0)* Time.fixedDeltaTime);
             }
         }
     }
