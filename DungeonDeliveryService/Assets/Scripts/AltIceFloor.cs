@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class AltIceFloor : MonoBehaviour
 {
-    // Player GameObject
-    public GameObject p;
     // Speed of the player
     public float speed = 5.0f;
     //Movement variables
@@ -25,14 +23,32 @@ public class AltIceFloor : MonoBehaviour
     void Start()
     {
         currentPosition = transform.position;
+        iceFloor.isTrigger = true;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(isMoving == true)
+        {
+            if (Input.GetAxis("Horizontal") != Input.GetAxis("Vertical"))
+                iceFloor.isTrigger = true;
+            else
+                iceFloor.isTrigger = false;
+        }
         // Get the respective Horizontal and Vertical movement
-        moveH = Input.GetAxis("Horizontal");
-        moveV = Input.GetAxis("Vertical");
+        if(Mathf.Abs(Input.GetAxis("Vertical")) > Mathf.Abs(Input.GetAxis("Horizontal")))
+        {
+            if(Input.GetAxisRaw("Vertical") != 0)
+                moveV = Input.GetAxisRaw("Vertical");
+            moveH = 0;
+        }
+        else if(Mathf.Abs(Input.GetAxis("Vertical")) < Mathf.Abs(Input.GetAxis("Horizontal")))
+        {
+            moveV = 0;
+            if (Input.GetAxisRaw("Horizontal") != 0)
+                moveH = Input.GetAxisRaw("Horizontal");
+        }
     }
 
 
@@ -46,7 +62,12 @@ public class AltIceFloor : MonoBehaviour
             // Updating position of the player
             posUpdate = (movement * speed * Time.deltaTime);
             // Adds constant force to the player
-            p.GetComponent<PlayerMovement>().AddConstForce(id, posUpdate);
+            if (!PlayerMovement.singleton.HasConstForce(id))
+            {
+                PlayerMovement.singleton.AddRestrictions();
+                PlayerMovement.singleton.AddConstForce(id, posUpdate);
+            }
+                
         }
         else
         {
@@ -69,13 +90,10 @@ public class AltIceFloor : MonoBehaviour
         }
     } // Close FixedUpdate
 
-    void OnTriggerEnter2D(Collider2D collision)
+    void OnTriggerEnter2D(Collider2D c)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
+        if (c.gameObject.CompareTag("Player"))
             isMoving = false;
-            p.GetComponent<PlayerMovement>().AddRestrictions();
-        }
     }
 
     void OnTriggerExit2D(Collider2D collision)
@@ -84,9 +102,13 @@ public class AltIceFloor : MonoBehaviour
         {
             isMoving = true;
             // Removes constant force to the player
-            p.GetComponent<PlayerMovement>().RemoveConstForce(id);
-
-            p.GetComponent<PlayerMovement>().RemoveRestrictions();
+            if (PlayerMovement.singleton.HasConstForce(id))
+            {
+                PlayerMovement.singleton.RemoveConstForce(id);
+                PlayerMovement.singleton.RemoveRestrictions();
+            }
+            
         }
+
     }
 }

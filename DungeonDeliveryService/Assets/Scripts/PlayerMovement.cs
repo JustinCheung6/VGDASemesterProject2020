@@ -86,6 +86,11 @@ public class PlayerMovement : MonoBehaviour
         
     }
 
+    public bool HasConstForce(string id)
+    {
+        return (externalForces.ContainsKey(id));
+    }
+
     private void Awake()
     {
         //Setup Singleton

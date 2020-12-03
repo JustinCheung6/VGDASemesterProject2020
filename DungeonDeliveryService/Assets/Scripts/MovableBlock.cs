@@ -5,39 +5,75 @@ using UnityEngine;
 public class MovableBlock : MonoBehaviour
 {
     [Tooltip("Use extremely large mass for pushing illusion")]
-    [SerializeField] protected float mass = 10000;
-    [SerializeField] Rigidbody2D RB;
-    [SerializeField] protected bool done;
+    //[SerializeField] Rigidbody2D RB;
+    [SerializeField] float waitTIme = 3f;
 
-    //Player collision detection
-    public void OnCollisionEnter2D(Collision2D c)
+    [SerializeField] private float moveSpeed = 1f;
+    private bool moving = false;
+    private bool colliding = false;
+    private Vector2 finalPos = new Vector2();
+    private Vector2 velocity = new Vector2();
+
+    private void FixedUpdate()
     {
-        if(c.gameObject.CompareTag("Player"))
+        if (moving)
         {
-            StartCoroutine(ChangeMass());
+            transform.position = transform.position + (Vector3)velocity * Time.fixedDeltaTime;
+
+            if( (velocity.x > 0 && transform.position.x >= finalPos.x) || (velocity.y > 0 && transform.position.y >= finalPos.y) || 
+                (velocity.x < 0 && transform.position.x <= finalPos.x) || (velocity.y < 0 && transform.position.y <= finalPos.y) )
+            {
+                //Debug.Log("Destination");
+                transform.position = finalPos;
+                velocity = new Vector2();
+                finalPos = new Vector2();
+                moving = false;
+            }
         }
     }
 
     //Changes mass to simulate player pushing block "inch-by-inch", flag to indicate finished simulation
-    IEnumerator ChangeMass()
+    IEnumerator PushBlock(int xPushing = 0, int yPushing = 0, float xTime = 0, float yTime = 0)
     {
-        yield return new WaitForSecondsRealtime(2);
-        RB.mass = 30;
-        yield return new WaitForSecondsRealtime(2);
-        RB.mass = 10000;
-        done = true;
+        xPushing = (Input.GetAxisRaw("Horizontal") == xPushing || xPushing == 0) ? (int)Input.GetAxisRaw("Horizontal") : 0;
+        yPushing = (Input.GetAxisRaw("Vertical") == yPushing || yPushing == 0) ? (int)Input.GetAxisRaw("Vertical") : 0;
+        xTime = (xPushing != 0) ? xTime + 0.1f : 0;
+        yTime = (yPushing != 0) ? yTime + 0.1f : 0;
+
+        yield return new WaitForSeconds(0.1f);
+
+        //Debug.Log("xTime " + xTime + " yTime " + yTime);
+
+        if ((xTime >= waitTIme || yTime >= waitTIme) && !moving)
+        {
+            //Debug.Log("Pushed");
+            finalPos = (Vector2)transform.position + transform.localScale * new Vector2((xTime >= waitTIme) ? xPushing : 0, (yTime >= waitTIme) ? yPushing : 0);
+            velocity = new Vector2(xPushing, yPushing) * moveSpeed;
+
+            moving = true;
+
+            yTime = xTime = 0;
+            xPushing = yPushing = 0;
+        }
+        if(colliding)
+            StartCoroutine(PushBlock(xPushing, yPushing, xTime, yTime));
     }
 
-    //If player is still "pushing" the block, continues simulation
-    public void OnCollisionStay2D(Collision2D c)
+    //Player collision detection
+    public void OnCollisionEnter2D(Collision2D c)
     {
-        if(done)
+        if (c.gameObject.CompareTag("Player") && !moving)
         {
-            done = false;
-            if (c.gameObject.CompareTag("Player"))
-            {
-                StartCoroutine(ChangeMass());
-            }
+            StartCoroutine(PushBlock());
+            colliding = true;
+        }
+    }
+    public void OnCollisionExit2D(Collision2D c)
+    {
+        if (c.gameObject.CompareTag("Player"))
+        {
+            StopCoroutine(PushBlock());
+            colliding = false;
         }
     }
 

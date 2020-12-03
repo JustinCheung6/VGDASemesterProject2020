@@ -56,6 +56,9 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Obstacles
+    uniqueID: 413068669
+    locked: 0
   - name: Colliders
     uniqueID: 3805878307
     locked: 0
