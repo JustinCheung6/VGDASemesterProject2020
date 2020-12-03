@@ -49,7 +49,10 @@ public class MovingPlatform : Obstacle
     //coroutine that destroys(setactive==false) the platform in a given time
     private IEnumerator Destroy()
     {
-        yield return new WaitForSeconds(untilDestroyed);
+        float temp = untilDestroyed-3;
+        yield return new WaitForSeconds(temp);
+        animate.SetBool("Weight", true);
+        yield return new WaitForSeconds(3.0f);
         TriggerObstacle();
         yield return null;
     }
@@ -168,7 +171,6 @@ public class MovingPlatform : Obstacle
                 TriggerObstacle();
             else if (player.getWeight() < weightTrigger)
             {
-                animate.SetBool("Weight", true);
                 StartCoroutine("Destroy");
             }
             onPlat = true;

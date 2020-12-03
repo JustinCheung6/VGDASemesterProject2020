@@ -912,7 +912,7 @@
             </e>
           </e>
         </e>
-        <e p="IceFloor.cs" t="Include" />
+        <e p="IceFloor (Old Script).cs" t="Include" />
         <e p="NarrativeText" t="Include">
           <e p="EndingNarrative.txt" t="Include" />
           <e p="GoblinScript.txt" t="Include" />
@@ -923,6 +923,7 @@
           <e p="WerewolfScript.txt" t="Include" />
         </e>
         <e p="Scripts" t="Include">
+          <e p="AltIceFloor.cs" t="Include" />
           <e p="Bridge.cs" t="Include" />
           <e p="Camera" t="Include">
             <e p="CameraDoor.cs" t="Include" />
@@ -936,6 +937,7 @@
           <e p="HoleObstacle.cs" t="Include" />
           <e p="Inventory.cs" t="Include" />
           <e p="Key.cs" t="Include" />
+          <e p="MainMenu.cs" t="Include" />
           <e p="Mechanism.cs" t="Include" />
           <e p="MovableBlock.cs" t="Include" />
           <e p="MovingPlatform.cs" t="Include" />
