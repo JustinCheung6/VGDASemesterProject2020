@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class AltIceFloor : MonoBehaviour
 {
+    // Player GameObject
     public GameObject p;
-    // Set user speed for DeliveryPerson.
+    // Speed of the player
     public float speed = 5.0f;
     //Movement variables
     private float moveH, moveV;
@@ -15,11 +16,9 @@ public class AltIceFloor : MonoBehaviour
     public Vector2 movement;
     public string id;
     public Vector2 posUpdate;
-    private Vector2 tempExtern = new Vector2();
-    private Vector2 constantExtern = new Vector2();
     public bool isMoving = true;
 
-    // Checks if direction is disabled because of wind: 0 = Left, 1 = Down, 2 = Right, 3 = Up
+    // Checks if direction is disabled because of ice: 0 = Left, 1 = Down, 2 = Right, 3 = Up
     [SerializeField] private int[] restrictions = { 0, 0, 0, 0 };
 
     // Start is called before the first frame update
@@ -31,21 +30,21 @@ public class AltIceFloor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isMoving)
-        {
-            // Get the respective Horizontal and Vertical movement.
-            moveH = Input.GetAxis("Horizontal");
-            moveV = Input.GetAxis("Vertical");
-        }
+        // Get the respective Horizontal and Vertical movement
+        moveH = Input.GetAxis("Horizontal");
+        moveV = Input.GetAxis("Vertical");
     }
+
 
     private void FixedUpdate()
     {
-        // Calculate the player's net movement.
+        // The movement or direction vector of the player
         movement = new Vector2(moveH, moveV);
 
         if (isMoving == false)
         {
+            // Updating position of the player
+            posUpdate = (movement * speed * Time.deltaTime);
             // Adds constant force to the player
             p.GetComponent<PlayerMovement>().AddConstForce(id, posUpdate);
         }
@@ -68,25 +67,14 @@ public class AltIceFloor : MonoBehaviour
                 //This prevents player from being affected by ice floor after it's out of the range
                 rb.velocity = new Vector2(rb.velocity.x, 0);
         }
-        
-        
-        
-        //else
-        //{
-        //    // Removes constant force to the player
-        //    p.GetComponent<PlayerMovement>().RemoveConstForce(id);
-        //}
     } // Close FixedUpdate
 
     void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            // Adds constant force to the player
-            //p.GetComponent<PlayerMovement>().AddConstForce(id, posUpdate);
-
-            p.GetComponent<PlayerMovement>().AddRestrictions(0);
-            p.GetComponent<PlayerMovement>().AddRestrictions(2);
+            isMoving = false;
+            p.GetComponent<PlayerMovement>().AddRestrictions();
         }
     }
 
@@ -94,12 +82,11 @@ public class AltIceFloor : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            isMoving = true;
             // Removes constant force to the player
             p.GetComponent<PlayerMovement>().RemoveConstForce(id);
 
-            p.GetComponent<PlayerMovement>().RemoveRestrictions(0);
-            p.GetComponent<PlayerMovement>().RemoveRestrictions(2);
-
+            p.GetComponent<PlayerMovement>().RemoveRestrictions();
         }
     }
 }
