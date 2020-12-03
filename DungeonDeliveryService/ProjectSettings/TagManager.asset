@@ -15,6 +15,7 @@ TagManager:
   - Floor2
   - Platform
   - ColliderPlat
+  - Ice Floor
   layers:
   - Default
   - TransparentFX
@@ -49,30 +50,12 @@ TagManager:
   - 
   - 
   m_SortingLayers:
-  - name: Pit
-    uniqueID: 3957777109
-    locked: 0
-  - name: Floor
-    uniqueID: 728994021
+  - name: Flooring
+    uniqueID: 2488627957
     locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Obstacles
-    uniqueID: 1474830323
-    locked: 0
-  - name: TopWalls
-    uniqueID: 4100426257
-    locked: 0
-  - name: BottomWalls
-    uniqueID: 1186383691
-    locked: 0
   - name: Colliders
-    uniqueID: 3059141705
-    locked: 0
-  - name: Outlines
-    uniqueID: 1964019461
-    locked: 0
-  - name: Player
-    uniqueID: 1050307909
+    uniqueID: 3805878307
     locked: 0
