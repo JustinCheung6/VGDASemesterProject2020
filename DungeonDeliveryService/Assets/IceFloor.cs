@@ -55,16 +55,17 @@ public class IceFloor : MonoBehaviour
         if (!canMove)
             return;
 
-        if(singleton == null && GetComponent<PlayerMovement>() != null)
-        {
-            singleton = GetComponent<PlayerMovement>();
-        }
-        else
-        {
-            Debug.LogWarning("Missing PlayerMovement component. Please add one.");
-        }
+        //if(singleton == null && GetComponent<PlayerMovement>() != null)
+        //{
+        //singleton = GetComponent<PlayerMovement>();
+        //}
+        //else
+        //{
+        //Debug.LogWarning("Missing PlayerMovement component. Please add one.");
+        //}
         // Adds a constant force to the player
-        singleton.AddConstForce(id, directionChange);
+        //singleton.AddConstForce(id, directionChange);
+        singleton.GetComponent<PlayerMovement>().AddConstForce(id, directionChange);
         // Change direction
         currentPosition = directionChange;
 
@@ -76,9 +77,10 @@ public class IceFloor : MonoBehaviour
     {
         if(c.gameObject.CompareTag("Wall"))
         {
-            singleton = GetComponent<PlayerMovement>();
+            //singleton = GetComponent<PlayerMovement>();
             // Removes constant force to the player
-            singleton.RemoveConstForce(id);
+            //singleton.RemoveConstForce(id);
+            singleton.GetComponent<PlayerMovement>().RemoveConstForce(id);
             // Set speed to 0
             currentPosition = Vector2.zero;
             canMove = true;
