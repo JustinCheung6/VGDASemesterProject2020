@@ -763,7 +763,7 @@ GameObject:
   - component: {fileID: 130748654}
   m_Layer: 0
   m_Name: Universal Walls
-  m_TagString: Untagged
+  m_TagString: Wall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2551,6 +2551,18 @@ TilemapCollider2D:
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
+--- !u!1 &584522416 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 62699718217915960, guid: f336ff35e9ed4014093ad9007bd51b99,
+    type: 3}
+  m_PrefabInstance: {fileID: 1442760644}
+  m_PrefabAsset: {fileID: 0}
+--- !u!50 &584522421 stripped
+Rigidbody2D:
+  m_CorrespondingSourceObject: {fileID: 4762214171980183986, guid: f336ff35e9ed4014093ad9007bd51b99,
+    type: 3}
+  m_PrefabInstance: {fileID: 1442760644}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &590251505
 GameObject:
   m_ObjectHideFlags: 0
@@ -7993,7 +8005,7 @@ GameObject:
   - component: {fileID: 1328293915}
   - component: {fileID: 1328293914}
   - component: {fileID: 1328293916}
-  - component: {fileID: 1328293917}
+  - component: {fileID: 1328293918}
   m_Layer: 0
   m_Name: Ice Floor
   m_TagString: Ice Floor
@@ -8009,7 +8021,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1328293912}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.19, y: 0.35, z: 0}
+  m_LocalPosition: {x: -1.19, y: -0.23, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1275056073}
@@ -8489,14 +8501,14 @@ TilemapCollider2D:
   m_GameObject: {fileID: 1328293912}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 91e403d6edb8a8d4a8ae2297d0bb4ad8, type: 2}
+  m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   m_MaximumTileChangeCount: 1000
   m_ExtrusionFactor: 0.00001
---- !u!114 &1328293917
+--- !u!114 &1328293918
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8505,13 +8517,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 1328293912}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3347dbc9879dd9449a270e0d8062be74, type: 3}
+  m_Script: {fileID: 11500000, guid: 9ff93bdb83463414f96bf54f0750ce5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  p: {fileID: 584522416}
   speed: 5
-  torque: 1
-  rb: {fileID: 1500496131}
-  aniMovement: 0
+  rb: {fileID: 584522421}
+  iceFloor: {fileID: 1328293916}
+  movement: {x: 0, y: 0}
+  singleton: {fileID: 0}
+  id: 
+  posUpdate: {x: 0, y: 0}
+  isMoving: 1
   restrictions: 00000000000000000000000000000000
 --- !u!1001 &1442760644
 PrefabInstance:
@@ -8611,12 +8628,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f336ff35e9ed4014093ad9007bd51b99, type: 3}
---- !u!50 &1500496131 stripped
-Rigidbody2D:
-  m_CorrespondingSourceObject: {fileID: 4762214171980183986, guid: f336ff35e9ed4014093ad9007bd51b99,
-    type: 3}
-  m_PrefabInstance: {fileID: 1442760644}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1688106074
 GameObject:
   m_ObjectHideFlags: 0
