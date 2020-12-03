@@ -10,6 +10,10 @@ public class IceFloor : MonoBehaviour
     // Boolean variable that detects whether Player is moving
     public bool canMove = true;
     Vector2 currentPosition;
+    // Singleton object from PlayerMovement script
+    public PlayerMovement singleton;
+    public string id;
+    public Vector2 posUpdate;
 
     // Start is called before the first frame update
     void Start()
@@ -31,12 +35,36 @@ public class IceFloor : MonoBehaviour
         }
     }
 
+    //private void FixedUpdate()
+    //{
+    // Adds a constant force to the player
+    //singleton.AddConstForce(id, posUpdate);
+    //}
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            MoveInSingleDirection(currentPosition);
+        }
+    }
+
     void MoveInSingleDirection(Vector2 directionChange)
     {
         // Check for canMove
         if (!canMove)
             return;
 
+        if(singleton == null && GetComponent<PlayerMovement>() != null)
+        {
+            singleton = GetComponent<PlayerMovement>();
+        }
+        else
+        {
+            Debug.LogWarning("Missing PlayerMovement component. Please add one.");
+        }
+        // Adds a constant force to the player
+        singleton.AddConstForce(id, directionChange);
         // Change direction
         currentPosition = directionChange;
 
@@ -44,18 +72,13 @@ public class IceFloor : MonoBehaviour
         canMove = false;
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            MoveInSingleDirection(currentPosition);
-        }
-    }
-
     private void OnCollisionEnter2D(Collision2D c)
     {
         if(c.gameObject.CompareTag("Wall"))
         {
+            singleton = GetComponent<PlayerMovement>();
+            // Removes constant force to the player
+            singleton.RemoveConstForce(id);
             // Set speed to 0
             currentPosition = Vector2.zero;
             canMove = true;
