@@ -5,20 +5,30 @@ using UnityEngine.Tilemaps;
 
 public class SealedDoor : Mechanism
 {
-    [SerializeField] protected TilemapCollider2D TC;
-    [SerializeField] private TilemapRenderer TR;
+    [SerializeField] protected Collider2D col;
+    [SerializeField] private Renderer ren;
 
     //Activate method for the sealed door
+
+    private void Start()
+    {
+        if (col == null)
+            col = GetComponent<Collider2D>();
+        if (ren == null)
+            ren = GetComponent<Renderer>();
+    }
+
     public override void Activate()
     {
-        TR.enabled = false;
-        TC.enabled = false;
+
+        ren.enabled = false;
+        col.enabled = false;
     }
 
     //Deactivate method for the sealed door
     public override void Deactivate()
     {
-        TR.enabled = true;
-        TC.enabled = true;
+        ren.enabled = true;
+        col.enabled = true;
     }
 }

@@ -441,7 +441,7 @@ GameObject:
   - component: {fileID: 524868670}
   - component: {fileID: 524868669}
   m_Layer: 0
-  m_Name: NarrativeScripts
+  m_Name: Fungus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -530,7 +530,7 @@ MonoBehaviour:
   scrollPos: {x: 283.96875, y: 95.70107}
   variablesScrollPos: {x: 0, y: 0}
   variablesExpanded: 1
-  blockViewHeight: 138
+  blockViewHeight: 200
   zoom: 1
   scrollViewRect:
     serializedVersion: 2
@@ -539,8 +539,9 @@ MonoBehaviour:
     width: 1114
     height: 859
   selectedBlocks:
-  - {fileID: 524868513}
-  selectedCommands: []
+  - {fileID: 524868556}
+  selectedCommands:
+  - {fileID: 524868559}
   variables: []
   description: 
   stepPause: 0

@@ -10,7 +10,7 @@ public class ProgressManager : MonoBehaviour
 
     //Narrative
     private List<string> narrativeProgress = new List<string>();
-    private bool CheckNarrativeProgress(string scriptName)
+    public bool CheckNarrativeProgress(string scriptName)
     {
         if (narrativeProgress.Contains(scriptName))
             return true;
@@ -19,6 +19,7 @@ public class ProgressManager : MonoBehaviour
 
     [SerializeField] private const string STARTINGSCRIPT = "OpeningNarrative";
     private string currentScript = "";
+    
     public string CurrentScript
     {
         get { 
@@ -40,12 +41,19 @@ public class ProgressManager : MonoBehaviour
         Game = 2
     }
 
+    private Scenes currentScene = Scenes.Cutscene;
+
+    //Audio
+    private AudioSource audio = null;
+    [SerializeField] private AudioClip beginningSong;
+    [SerializeField] private AudioClip finalStretch;
+
     private void Awake()
     {
         if(singleton == null)
         {
             singleton = this;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else if(singleton != this)
         {
@@ -54,8 +62,30 @@ public class ProgressManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        audio = GetComponentInChildren<AudioSource>();
+
+        audio.clip = beginningSong;
+
+        GoToScene(Scenes.Cutscene);
+    }
+
     public void GoToScene(Scenes scenes)
     {
-        SceneManager.LoadScene((int)scenes);
+        if(scenes == Scenes.Cutscene)
+        {
+            audio.Stop();
+            PlayerMovement.singleton.PlayAnimation = true;
+            StoryManager.Get.PlayScene(CurrentScript);
+        }
+
+        if(scenes == Scenes.Game)
+        {
+            audio.Play();
+            PlayerMovement.singleton.PlayAnimation = false;
+        }
+
+        //SceneManager.LoadScene((int)scenes);
     }
 }

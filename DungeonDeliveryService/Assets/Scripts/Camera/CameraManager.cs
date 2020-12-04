@@ -5,6 +5,9 @@ using UnityEngine.Tilemaps;
 
 public class CameraManager : MonoBehaviour
 {
+    private static CameraManager singleton;
+    public static CameraManager Get { get => singleton; }
+
     //Room Prefab with Bounding box collider for Cinemachine
     [SerializeField] private GameObject roomPrefab = null;
 
@@ -15,19 +18,24 @@ public class CameraManager : MonoBehaviour
     //Object References
     [Tooltip("Finds object with Room Outline tag for setting up rooms")][SerializeField] private Tilemap roomOutline = null;
     private Camera mainCam = null;
+    private Camera animCam = null;
     private Cinemachine.CinemachineVirtualCamera vcam = null;
     private Cinemachine.CinemachineConfiner boundingBox = null;
-    private Transform dummyCamera = null;
     private Transform playerTrans = null;
 
     private void Awake()
     {
+        if (singleton == null)
+            singleton = this;
+        else if (singleton != this)
+            Destroy(this.gameObject);
+
         roomOutline = GameObject.FindGameObjectWithTag("Room Outline").GetComponent<Tilemap>();
         vcam = GetComponentInChildren<Cinemachine.CinemachineVirtualCamera>();
         boundingBox = GetComponentInChildren<Cinemachine.CinemachineConfiner>();
         playerTrans = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
-        dummyCamera = GameObject.FindGameObjectWithTag("Camera Dummy").transform;
-        mainCam = GetComponentInChildren<Camera>();
+        mainCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
+        animCam = GameObject.FindGameObjectWithTag("AnimCam").GetComponent<Camera>();
     }
     private void Start()
     {
@@ -75,6 +83,7 @@ public class CameraManager : MonoBehaviour
         //Setup Camera
         vcam.Follow = playerTrans;
         boundingBox.m_BoundingShape2D = roomLayout[playerRoom.x, playerRoom.y].GetComponent<Collider2D>();
+        vcam.m_Lens.OrthographicSize = CalculateOrthographicSize(boundingBox.m_BoundingShape2D.bounds);
     }
 
     private CameraRoom AddRoom(int[] pos, bool origin = false)
@@ -108,8 +117,13 @@ public class CameraManager : MonoBehaviour
 
         Vector3 size = roomOutline.CellToWorld(topRight) - roomOutline.CellToWorld(bottomLeft) + (Vector3)Vector2.one;
         Vector3 position = roomOutline.CellToWorld(bottomLeft) + (size / 2);
+        
+        //So we can see the top wall
+        position.y += 0.3f;
+        size.y += 0.3f;
 
         GameObject room = Instantiate(roomPrefab, position, Quaternion.identity, transform);
+
         room.GetComponentInChildren<BoxCollider2D>().size = size;
 
         return room.GetComponent<CameraRoom>();
@@ -120,10 +134,10 @@ public class CameraManager : MonoBehaviour
         playerRoom = newRoom.position;
 
         //boundingBox.m_BoundingShape2D = null;
-        dummyCamera.position = destination;
-        dummyCamera.gameObject.SetActive(true);
-        dummyCamera.GetComponent<Cinemachine.CinemachineConfiner>().m_BoundingShape2D = newRoom.GetComponent<Collider2D>();
-        vcam.Follow = null;
+        //dummyCamera.position = destination;
+        //dummyCamera.gameObject.SetActive(true);
+        //dummyCamera.GetComponent<Cinemachine.CinemachineConfiner>().m_BoundingShape2D = newRoom.GetComponent<Collider2D>();
+        //vcam.Follow = null;
         boundingBox.m_BoundingShape2D = newRoom.GetComponent<Collider2D>();
 
         /*
@@ -142,13 +156,39 @@ public class CameraManager : MonoBehaviour
         Vector3 travel = destination;
         travel.z = -10;
 
-        Debug.Log("Cam Moving");
+        //Debug.Log("Changing Rooms");
         mainCam.transform.position = travel;
+        vcam.m_Lens.OrthographicSize = CalculateOrthographicSize(boundingBox.m_BoundingShape2D.bounds);
         yield return new WaitForFixedUpdate();
 
-        dummyCamera.GetComponent<Cinemachine.CinemachineConfiner>().m_BoundingShape2D = null;
+        //dummyCamera.GetComponent<Cinemachine.CinemachineConfiner>().m_BoundingShape2D = null;
         boundingBox.m_BoundingShape2D = newRoom.GetComponent<Collider2D>();
         vcam.Follow = playerTrans;
-        dummyCamera.gameObject.SetActive(false);
+        //dummyCamera.gameObject.SetActive(false);
+    }
+
+
+    float CalculateOrthographicSize(Bounds boundingBox)
+    {
+        float size = boundingBox.size.x * 0.2941f;
+
+        if (size > 3.5f)
+            return size;
+        else 
+            return 3.5f;
+    }
+
+    public void AnimcationCamera(bool playing)
+    {
+        if (playing)
+        {
+            animCam.gameObject.SetActive(true);
+            mainCam.gameObject.SetActive(false);
+        }
+        else
+        {
+            mainCam.gameObject.SetActive(true);
+            animCam.gameObject.SetActive(false);
+        }
     }
 }

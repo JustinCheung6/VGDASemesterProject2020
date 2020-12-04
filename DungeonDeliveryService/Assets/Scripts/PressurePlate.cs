@@ -10,20 +10,33 @@ public class PressurePlate : Obstacle
     [Tooltip("Whether or not the mechanism is active")]
     [SerializeField] private bool needsContinuous;
 
+    private bool quipPlayed = false;
+    private string quipName = "PressurePlateQuip";
+
     protected override void Awake()
     {
         base.Awake();
         criteria = DangerTime.greaterThanOrEqual;
-        weightTrigger = 1;
+        weightTrigger = 5;
+    }
+
+    protected override void MechanicReset()
+    {
+        DisableObstacle();
     }
 
     //Checks if object is a moving block or player object
     //player needs certain weight to trigger, blocks always trigger
     protected override void OnTriggerEnter2D(Collider2D c)
     {
-        if (c.gameObject.GetComponent<MovableBlock>())
+        if (c.gameObject.GetComponent<MovableBlock>() != null)
         {
             TriggerObstacle();
+        }
+        else if (c.gameObject.CompareTag("Player") && !getWeightToTrigger() && !quipPlayed)
+        {
+            quipPlayed = true;
+            StoryManager.Get.PlayQuip(quipName, true);
         }
         else
         {
@@ -43,12 +56,14 @@ public class PressurePlate : Obstacle
     //Activates the connected mechanism
     public override void TriggerObstacle()
     {
-        mechanism.Activate();
+        if(mechanism != null)
+            mechanism.Activate();
     }
 
     //Deactivates the connected mechanism
     public void DisableObstacle()
     {
-        mechanism.Deactivate();
+        if(mechanism != null)
+            mechanism.Deactivate();
     }
 }
