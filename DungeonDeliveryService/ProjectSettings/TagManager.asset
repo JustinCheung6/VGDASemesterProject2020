@@ -6,7 +6,6 @@ TagManager:
   tags:
   - Grid
   - Room Outline
-  - Camera Dummy
   - Door Manager
   - Wind
   - Block
@@ -16,6 +15,9 @@ TagManager:
   - Platform
   - ColliderPlat
   - Ice Floor
+  - Wall
+  - AnimCam
+  - Undefined
   layers:
   - Default
   - TransparentFX
@@ -58,6 +60,12 @@ TagManager:
     locked: 0
   - name: Obstacles
     uniqueID: 413068669
+    locked: 0
+  - name: Player
+    uniqueID: 3074553189
+    locked: 0
+  - name: Walls
+    uniqueID: 611875249
     locked: 0
   - name: Colliders
     uniqueID: 3805878307

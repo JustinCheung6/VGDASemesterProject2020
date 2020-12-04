@@ -17,7 +17,7 @@ public class DoorManager : MonoBehaviour
     {
         if (singleton == null)
         {
-            Debug.Log("DoorManger Set");
+            //Debug.Log("DoorManger Set");
             singleton = this;
         }
         else if (singleton != this)

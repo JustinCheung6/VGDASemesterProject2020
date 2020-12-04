@@ -835,8 +835,8 @@ TilemapRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: -1235825591
-  m_SortingLayer: 0
+  m_SortingLayerID: -489088989
+  m_SortingLayer: 2
   m_SortingOrder: 0
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
@@ -1525,6 +1525,16 @@ Tilemap:
       m_TileObjectToInstantiateIndex: 65535
       dummyAlignment: 0
       m_AllTileFlags: 1073741825
+  - first: {x: -2, y: 2, z: 0}
+    second:
+      serializedVersion: 2
+      m_TileIndex: 0
+      m_TileSpriteIndex: 0
+      m_TileMatrixIndex: 0
+      m_TileColorIndex: 0
+      m_TileObjectToInstantiateIndex: 65535
+      dummyAlignment: 0
+      m_AllTileFlags: 1073741825
   - first: {x: 8, y: 2, z: 0}
     second:
       serializedVersion: 2
@@ -2087,18 +2097,19 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: 3dc7c7eaf46134b7785e7bce99880a77, type: 2}
   - m_RefCount: 123
     m_Data: {fileID: 11400000, guid: e152d637cb025e64e830d5dc5b95404f, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: -8290125190311085899, guid: 6c771545c471c498e9a9202943e58611,
+      type: 3}
   - m_RefCount: 123
     m_Data: {fileID: 3098290454525159173, guid: 0c7c4b4ce927fee4787e23d20a263985,
       type: 3}
   m_TileMatrixArray:
-  - m_RefCount: 123
+  - m_RefCount: 124
     m_Data:
       e00: 1
       e01: 0
@@ -2117,7 +2128,7 @@ Tilemap:
       e32: 0
       e33: 1
   m_TileColorArray:
-  - m_RefCount: 123
+  - m_RefCount: 124
     m_Data: {r: 1, g: 1, b: 1, a: 1}
   m_TileObjectToInstantiateArray: []
   m_AnimationFrameRate: 1
@@ -2595,12 +2606,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &584522416 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 62699718217915960, guid: f336ff35e9ed4014093ad9007bd51b99,
-    type: 3}
-  m_PrefabInstance: {fileID: 1442760644}
-  m_PrefabAsset: {fileID: 0}
 --- !u!50 &584522421 stripped
 Rigidbody2D:
   m_CorrespondingSourceObject: {fileID: 4762214171980183986, guid: f336ff35e9ed4014093ad9007bd51b99,
@@ -8564,12 +8569,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ff93bdb83463414f96bf54f0750ce5c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  p: {fileID: 584522416}
   speed: 5
   rb: {fileID: 584522421}
   iceFloor: {fileID: 1328293916}
   movement: {x: 0, y: 0}
-  id: 
+  id: IceFloor
   posUpdate: {x: 0, y: 0}
   isMoving: 1
   restrictions: 00000000000000000000000000000000
@@ -8587,12 +8591,12 @@ PrefabInstance:
     - target: {fileID: 62699717394874212, guid: f336ff35e9ed4014093ad9007bd51b99,
         type: 3}
       propertyPath: m_SortingLayerID
-      value: 1050307909
+      value: -489088989
       objectReference: {fileID: 0}
     - target: {fileID: 62699717394874212, guid: f336ff35e9ed4014093ad9007bd51b99,
         type: 3}
       propertyPath: m_SortingLayer
-      value: 6
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 62699717394874212, guid: f336ff35e9ed4014093ad9007bd51b99,
         type: 3}

@@ -12,7 +12,7 @@ public class AltIceFloor : MonoBehaviour
     public Rigidbody2D rb;
     public Collider2D iceFloor;
     public Vector2 movement;
-    public string id;
+    public string id = "IceFloor";
     public Vector2 posUpdate;
     public bool isMoving = true;
 
@@ -29,13 +29,14 @@ public class AltIceFloor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isMoving == true)
+        if (isMoving == true)
         {
             if (Input.GetAxis("Horizontal") != Input.GetAxis("Vertical"))
                 iceFloor.isTrigger = true;
             else
                 iceFloor.isTrigger = false;
         }
+
         // Get the respective Horizontal and Vertical movement
         if(Mathf.Abs(Input.GetAxis("Vertical")) > Mathf.Abs(Input.GetAxis("Horizontal")))
         {
@@ -88,6 +89,13 @@ public class AltIceFloor : MonoBehaviour
                 //This prevents player from being affected by ice floor after it's out of the range
                 rb.velocity = new Vector2(rb.velocity.x, 0);
         }
+
+        if (!PlayerMovement.singleton.HasMoved && PlayerMovement.singleton.HasConstForce(id) && !isMoving)
+        {
+            PlayerMovement.singleton.RemoveConstForce(id);
+            PlayerMovement.singleton.AddConstForce(id, posUpdate);
+        }
+
     } // Close FixedUpdate
 
     void OnTriggerEnter2D(Collider2D c)

@@ -14,6 +14,12 @@ public class SnowPile : Obstacle
     //Images for the snow object (middle, top, left, right, bottom)
     private Sprite[] snow = { null, null, null, null, null };
 
+    private List<Vector3> deletedTilePos = new List<Vector3>();
+    private Dictionary<Vector3Int, TileBase> deletedTiles = new Dictionary<Vector3Int, TileBase>();
+
+    private bool[] quipPlayed = { false, false };
+    private string[] quipName = { "SnowFallQuip", "SnowWalkerQuip" };
+
     protected override void Awake()
     {
         base.Awake();
@@ -27,6 +33,11 @@ public class SnowPile : Obstacle
         TrackSnowPiles();
     }
 
+    private void Update()
+    {
+        if (getWeightToTrigger())
+            UpdateObstacle();
+    }
     private void TrackSnowPiles()
     {
         snowPiles.CompressBounds();
@@ -68,29 +79,66 @@ public class SnowPile : Obstacle
     {
         //Checks if player is on top of snow pile 
         if (tilePos.ContainsKey(GridManager.Get.PlayerCellPos[1]))
-            if (tilePos[GridManager.Get.PlayerCellPos[1]])
+            if(tilePos[GridManager.Get.PlayerCellPos[0]])
                 TriggerObstacle();
     }
     //Delete tile and drop player down to bottom floor
     public override void TriggerObstacle()
     {
+        
         Vector3Int deletePos = snowPiles.WorldToCell(FindObjectOfType<PlayerMovement>().transform.position);
 
-        snowPiles.SetTile(deletePos, null);
+        if(!deletedTiles.ContainsKey(deletePos))
+            deletedTiles.Add(deletePos, snowPiles.GetTile(deletePos));
+        if(!deletedTilePos.Contains(GridManager.Get.PlayerCellPos[0]))
+            deletedTilePos.Add(GridManager.Get.PlayerCellPos[0]);
 
-        tilePos[GridManager.Get.PlayerCellPos[0]] = false;
+        if (!quipPlayed[0])
+        {
+            quipPlayed[0] = true;
+            StoryManager.Get.PlayQuip(quipName[0]);
+        }
+
+        snowPiles.SetTile(deletePos, null);
+        //tilePos[GridManager.Get.PlayerCellPos[0]] = false;
+        
         FloorManager.Get.Downstairs();
+    }
+
+    protected override void MechanicReset()
+    {
+        foreach(Vector3 pos in deletedTilePos)
+        {
+            tilePos[pos] = true;
+        }
+        foreach(KeyValuePair<Vector3Int, TileBase> tile in deletedTiles)
+        {
+            snowPiles.SetTile(tile.Key, tile.Value);
+        }
+
+        deletedTilePos = new List<Vector3>();
+        deletedTiles = new Dictionary<Vector3Int, TileBase>();
     }
 
     protected override void OnTriggerEnter2D(Collider2D col)
     {
+        if (!quipPlayed[1] && !getWeightToTrigger())
+        {
+            quipPlayed[1] = true;
+            StoryManager.Get.PlayQuip(quipName[1]);
+        }
+
+        /*
         if(getWeightToTrigger())
             GridManager.Get.OnMoved += UpdateObstacle;
+        */
     }
     protected void OnTriggerExit2D(Collider2D col)
     {
+        /*
         if(getWeightToTrigger())
             GridManager.Get.OnMoved -= UpdateObstacle;
+        */
     }
     //Remove default obstacle OnCollisionEnter function
     public override void OnCollisionEnter2D(Collision2D col)

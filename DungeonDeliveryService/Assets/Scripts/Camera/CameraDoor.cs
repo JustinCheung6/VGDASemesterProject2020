@@ -11,7 +11,6 @@ public class CameraDoor : MonoBehaviour
 
     //Object References
     private Collider2D doorCollider = null;
-    private Transform cameraDummy = null;
     private PlayerMovement pmScript = null;
     private CameraManager cmScript = null;
 
@@ -26,7 +25,6 @@ public class CameraDoor : MonoBehaviour
     private void Awake()
     {
         doorCollider = GetComponent<Collider2D>();
-        cameraDummy = GameObject.FindGameObjectWithTag("Camera Dummy").transform;
         pmScript = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerMovement>();
         cmScript = FindObjectOfType<CameraManager>();
     }
@@ -133,6 +131,10 @@ public class CameraDoor : MonoBehaviour
         doorCollider.enabled = false;
         pmScript.WalkToDoor(destination);
         doorCollider.enabled = true;
+
+        //Reset Obstacles
+        ResettableMechanic.ResetAll();
+
         pmScript.RemoveRestrictions();  
     }
 
@@ -147,14 +149,14 @@ public class CameraDoor : MonoBehaviour
             if (doorType == Orientation.VerticleDoor)
             {
                 distance.y = (c.gameObject.transform.position.y > transform.position.y) ? -1 : 1;
-                destination.y += 2 * distance.y;
+                destination.y += 1 * distance.y;
                 cr = (distance.y > 0) ? rooms[1] : rooms[0]; 
             }
                 
             else if(doorType == Orientation.HorizontalDoor)
             {
                 distance.x = (c.gameObject.transform.position.x > transform.position.x) ? -1 : 1;
-                destination.x += 2 * distance.x;
+                destination.x += 1 * distance.x;
                 cr = (distance.x > 0) ? rooms[1] : rooms[0];
             }
                 

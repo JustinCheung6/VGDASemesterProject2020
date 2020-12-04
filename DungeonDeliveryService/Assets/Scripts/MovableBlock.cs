@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MovableBlock : MonoBehaviour
+public class MovableBlock : ResettableMechanic
 {
     [Tooltip("Use extremely large mass for pushing illusion")]
     //[SerializeField] Rigidbody2D RB;
@@ -14,6 +14,14 @@ public class MovableBlock : MonoBehaviour
     private Vector2 finalPos = new Vector2();
     private Vector2 velocity = new Vector2();
 
+    private Renderer sprite = null;
+    private Collider2D col = null;
+
+    private void Start()
+    {
+        sprite = GetComponent<Renderer>();
+        col = GetComponent<Collider2D>();
+    }
     private void FixedUpdate()
     {
         if (moving)
@@ -57,6 +65,13 @@ public class MovableBlock : MonoBehaviour
         }
         if(colliding)
             StartCoroutine(PushBlock(xPushing, yPushing, xTime, yTime));
+    }
+
+    protected override void MechanicReset()
+    {
+        col.enabled = true;
+        sprite.enabled = true;
+        base.MechanicReset();
     }
 
     //Player collision detection

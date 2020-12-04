@@ -29,7 +29,7 @@ public class GridManager : MonoBehaviour
         //Set singleton script
         if (singleton == null)
         {
-            Debug.Log("GridManager Set");
+            //Debug.Log("GridManager Set");
             singleton = this;
         }
         else if (singleton != this)

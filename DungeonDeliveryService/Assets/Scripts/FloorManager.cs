@@ -20,7 +20,7 @@ public class FloorManager : MonoBehaviour
     {
         if(FloorManager.singleton == null)
         {
-            Debug.Log("FloorManager Set");
+            //Debug.Log("FloorManager Set");
             FloorManager.singleton = this;
         }
         else if(FloorManager.singleton != this)
@@ -60,7 +60,7 @@ public class FloorManager : MonoBehaviour
 
     public void Upstairs()
     {
-        Debug.Log("Going Up");
+        //Debug.Log("Going Up");
         foreach(Collider2D f in floor1Colliders)
         {
             f.enabled = false;
@@ -78,7 +78,7 @@ public class FloorManager : MonoBehaviour
     }
     public void Downstairs()
     {
-        Debug.Log("Going Down");
+        //Debug.Log("Going Down");
         foreach (Collider2D f in floor1Colliders)
         {
             f.enabled = true;

@@ -13,7 +13,8 @@ public class PlayerMovement : MonoBehaviour
     public float acceleration = 1.0f;
     // Set up the movement variables that will be called.
     private float moveHorizontal, moveVertical;
-    [SerializeField] private bool animatedMovement = false;
+    [SerializeField] private bool playingAnimation = false;
+    public bool PlayAnimation { set => playingAnimation = value; }
     //Check if player is moving by the controller
     private bool controllerMovement = false;
 
@@ -22,10 +23,14 @@ public class PlayerMovement : MonoBehaviour
     private Dictionary<string, Vector2> externalForces = new Dictionary<string, Vector2>();
     private Vector2 constantExternal = new Vector2();
 
-    public bool IsMoving { get => (animatedMovement || controllerMovement); }
+    public bool IsMoving { get => (!playingAnimation && controllerMovement); }
 
     // Checks if direction is disabled because of wind: 0 = Left, 1 = Down, 2 = Right, 3 = Up
     [SerializeField] private int[] restrinctions = { 0, 0, 0, 0 };
+
+    private Vector2 lastFramePos = new Vector2();
+    [SerializeField] private bool hasMoved = false;
+    public bool HasMoved { get => hasMoved; }
 
     //Stops player movement at a specfic direction
     public void AddRestrictions(int index)
@@ -107,24 +112,24 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Vector2 currentPosition = transform.position;
+        lastFramePos = transform.position;
     } 
 
     // Update is called once per frame
     void Update()
     {
-        if (!animatedMovement)
+        if (!playingAnimation)
         {
             // Get the respective Horizontal and Vertical movement.
             moveHorizontal = Input.GetAxis("Horizontal");
             moveVertical = Input.GetAxis("Vertical");
         }
-        
+
     } // Close Update
 
     private void FixedUpdate()
     {
-        if (!animatedMovement)
+        if (!playingAnimation)
         {
             // Calculate the player's net movement.
             Vector2 movement = new Vector2(moveHorizontal, moveVertical);
@@ -157,12 +162,16 @@ public class PlayerMovement : MonoBehaviour
             }
 
             // Apply the actual movement
-            transform.position = ((Vector2) transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f) + tempExternal + constantExternal;
+            transform.position = ((Vector2)transform.position) + (movement * moveSpeed * Time.fixedDeltaTime * 10f) + tempExternal + constantExternal;
             tempExternal = new Vector2();
 
-        }
-    } 
 
+            hasMoved = (lastFramePos.x != transform.position.x || lastFramePos.y != transform.position.y) ? true : false;
+            lastFramePos = new Vector2(transform.position.x, transform.position.y);
+        }
+        else
+            controllerMovement = false;
+    } 
     public void WalkToDoor(Vector2 destination)
     {
         transform.position = destination;

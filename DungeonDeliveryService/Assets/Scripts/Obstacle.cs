@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Obstacle : MonoBehaviour
+public class Obstacle : ResettableMechanic
 {
     
     [Tooltip("The exact weight number where obstacle triggers")]
     [SerializeField] protected int weightTrigger = 1;
     [Tooltip("What Range is the obstacle a danger")]
     [SerializeField] protected DangerTime criteria = DangerTime.exactly;
-    
+
     //Object References
     protected Player player;
 
