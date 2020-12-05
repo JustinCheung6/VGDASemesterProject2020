@@ -10,6 +10,11 @@ public class PressurePlate : Obstacle
     [Tooltip("Whether or not the mechanism is active")]
     [SerializeField] private bool needsContinuous;
 
+    //Sprites
+    [SerializeField] private Sprite plateUp;
+    [SerializeField] private Sprite plateDown;
+
+    //Narrative
     private bool quipPlayed = false;
     private string quipName = "PressurePlateQuip";
 
@@ -57,13 +62,21 @@ public class PressurePlate : Obstacle
     public override void TriggerObstacle()
     {
         if(mechanism != null)
+        {
+            GetComponent<SpriteRenderer>().sprite = plateDown;
             mechanism.Activate();
+        }
+            
     }
 
     //Deactivates the connected mechanism
     public void DisableObstacle()
     {
         if(mechanism != null)
+        {
+            GetComponent<SpriteRenderer>().sprite = plateUp;
             mechanism.Deactivate();
+        }
+            
     }
 }
