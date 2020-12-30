@@ -5,29 +5,47 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    private static Player singleton = null;
+    public static Player Get { get => singleton; }
+
+    private SpriteRenderer spriteRenderer;
+
     //Event that all obstacles are going to connect to. Activates when weight changes
     public delegate void UpdateWorld();
     public static event UpdateWorld WeightChanged;
 
     // Set the intital weight of the player to 0.
     [SerializeField] private int weight = 0;
-    
-    // Variable for most recent level.
-    private int currentScene;
+
+    private Vector3 respawnPoint = new Vector3();
+    public void SetRespawnPoint(Vector2 destination) { respawnPoint = destination; }
+
+    private void OnEnable()
+    {
+        if(singleton == null) { singleton = this; }
+        else if(singleton != this) { Debug.Log("Multiple instances of Player script found"); }
+    }
+    private void OnDisable() { if(singleton == this) { singleton = null; } }
+
+    private void Awake()
+    {
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+    }
+
+    private void Start() { respawnPoint = transform.position; }
 
     /**
      * Function called when player dies.
      */
-    public void onPlayerDeath()
+    public IEnumerator onPlayerDeath(float delay = 1f)
     {
+        spriteRenderer.enabled = false;
+        PlayerMovement.singleton.AddRestrictions();
+        yield return new WaitForSeconds(delay);
+        transform.position = respawnPoint;
+        spriteRenderer.enabled = true;
+        PlayerMovement.singleton.RemoveRestrictions();
 
-        currentScene = SceneManager.GetActiveScene().buildIndex;
-
-        // There should be a "load a death scene" that plays when the player dies but we don't have that, so we'll immediately just restart the level instead.
-
-        // Reload the current scene due to death. Yes, it uses the above value, for futureproofing if there's ever a "death screen". 
-        // Tbh, we may end up changing the flow later on anyways.
-        SceneManager.LoadScene(currentScene);
     } //Close onDeath
 
     /**

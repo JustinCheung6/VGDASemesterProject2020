@@ -28,16 +28,15 @@ public class Wind : Obstacle
     {
         Player.WeightChanged -= UpdateObstacle;
     }
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         //Reference objects
         if (wind == null)
             wind = GetComponent<AreaEffector2D>();
         if (windCollider == null)
             windCollider = GetComponent<BoxCollider2D>();
         if (playerMove == null)
-            playerMove = player.GetComponent<PlayerMovement>();
+            playerMove = Player.Get.GetComponent<PlayerMovement>();
     }
 
     //Checks player weight to see if strongWind should activate

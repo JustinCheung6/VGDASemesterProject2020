@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 
-public class Pit : Obstacle
+public class Pit : MonoBehaviour
 {
     public bool platform;
-    protected override void OnTriggerEnter2D(Collider2D c)
+    protected void OnTriggerEnter2D(Collider2D c)
     {
         if (c.gameObject.CompareTag("Player"))
         {
@@ -31,10 +31,10 @@ public class Pit : Obstacle
         }
     }
 
-    public override void TriggerObstacle()
+    public void TriggerObstacle()
     {
         Debug.Log("Trigger in pit, player will die");
-        player.onPlayerDeath();
+        Player.Get.onPlayerDeath();
     }
     
 }

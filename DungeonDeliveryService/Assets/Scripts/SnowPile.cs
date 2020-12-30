@@ -20,9 +20,8 @@ public class SnowPile : Obstacle
     private bool[] quipPlayed = { false, false };
     private string[] quipName = { "SnowFallQuip", "SnowWalkerQuip" };
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         snowPiles = GetComponent<Tilemap>();
         tileCollider2D = GetComponent<TilemapCollider2D>();
     }

@@ -21,6 +21,9 @@ public class MovingPlatform : Obstacle
     //time left until the platform is destroyed
     public float untilDestroyed;
     Animator animate;
+
+    //Is true of the platform has been spawned
+    private bool spawned = true;
     
     public GameObject platformAnim;
     [SerializeField] private GameObject pitGO;
@@ -49,11 +52,16 @@ public class MovingPlatform : Obstacle
     //coroutine that destroys(setactive==false) the platform in a given time
     private IEnumerator Destroy()
     {
-        float temp = untilDestroyed-3;
+        yield return new WaitForSeconds(0.5f);
+        yield return new WaitUntil(()=> !timer);
+        float temp = untilDestroyed-3f;
         yield return new WaitForSeconds(temp);
         animate.SetBool("Weight", true);
         yield return new WaitForSeconds(3.0f);
         TriggerObstacle();
+        yield return new WaitForSeconds(3.0f);
+        if (!spawned)
+            respawn();
         yield return null;
     }
     
@@ -92,6 +100,7 @@ public class MovingPlatform : Obstacle
     //for respawning the platform with the same parameters and loc when player dies
     void respawn()
     {
+        spawned = true;
         transform.position = storeLoc;
         onPlat = storePlat;
         leftSide = storeLeft;
@@ -100,6 +109,7 @@ public class MovingPlatform : Obstacle
         GetComponent<Renderer>().enabled = true;
         GetComponent<BoxCollider2D>().enabled = true;
         platformAnim.GetComponent<Renderer>().enabled = true;
+        timer = true;
 
     }
 
@@ -169,7 +179,7 @@ public class MovingPlatform : Obstacle
         {
             if(getWeightToTrigger())
                 TriggerObstacle();
-            else if (player.getWeight() < weightTrigger)
+            else if (Player.Get.getWeight() < weightTrigger)
             {
                 StartCoroutine("Destroy");
             }
@@ -194,6 +204,6 @@ public class MovingPlatform : Obstacle
         GetComponent<Renderer>().enabled = false;
         GetComponent<BoxCollider2D>().enabled = false;
         platformAnim.GetComponent<Renderer>().enabled = false;
-
+        spawned = false;
     }
 }

@@ -18,9 +18,8 @@ public class PressurePlate : Obstacle
     private bool quipPlayed = false;
     private string quipName = "PressurePlateQuip";
 
-    protected override void Awake()
+    protected void Awake()
     {
-        base.Awake();
         criteria = DangerTime.greaterThanOrEqual;
         weightTrigger = 5;
     }

@@ -10,9 +10,6 @@ public class Obstacle : ResettableMechanic
     [Tooltip("What Range is the obstacle a danger")]
     [SerializeField] protected DangerTime criteria = DangerTime.exactly;
 
-    //Object References
-    protected Player player;
-
     //Conditions for obstacle to be active (be dangerous)
     protected enum DangerTime
     {
@@ -24,11 +21,6 @@ public class Obstacle : ResettableMechanic
     /**
      * Function to set activate Obstacle to true.
      */
-    protected virtual void Awake()
-    {
-        if (player == null)
-            player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
-    }
 
     // Triggers the obstacle if the player's weight matches the criteria
     //(It's used by event delegate, so it should trigger whenever player weight changes)
@@ -63,17 +55,17 @@ public class Obstacle : ResettableMechanic
     {
         if (criteria == DangerTime.lessThanOrEqual)
         {
-            if (player.getWeight() > weightTrigger)
+            if (Player.Get.getWeight() > weightTrigger)
                 return false;
         }
         else if (criteria == DangerTime.greaterThanOrEqual)
         {
-            if (player.getWeight() < weightTrigger)
+            if (Player.Get.getWeight() < weightTrigger)
                 return false;
         }
         else if (criteria == DangerTime.exactly)
         {
-            if (player.getWeight() != weightTrigger)
+            if (Player.Get.getWeight() != weightTrigger)
                 return false;
         }
 

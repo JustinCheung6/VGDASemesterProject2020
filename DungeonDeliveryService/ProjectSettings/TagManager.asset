@@ -18,6 +18,7 @@ TagManager:
   - Wall
   - AnimCam
   - Undefined
+  - Camera Dummy
   layers:
   - Default
   - TransparentFX

@@ -135,7 +135,9 @@ public class CameraDoor : MonoBehaviour
         //Reset Obstacles
         ResettableMechanic.ResetAll();
 
-        pmScript.RemoveRestrictions();  
+        pmScript.RemoveRestrictions();
+        Player.Get.SetRespawnPoint(destination);
+
     }
 
     private void OnCollisionEnter2D(Collision2D c)
