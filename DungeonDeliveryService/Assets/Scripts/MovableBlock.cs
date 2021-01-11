@@ -75,7 +75,7 @@ public class MovableBlock : ResettableMechanic
     }
 
     //Player collision detection
-    public void OnCollisionEnter2D(Collision2D c)
+    protected void OnCollisionEnter2D(Collision2D c)
     {
         if (c.gameObject.CompareTag("Player") && !moving)
         {

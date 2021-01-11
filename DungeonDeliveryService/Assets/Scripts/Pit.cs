@@ -6,12 +6,20 @@ using UnityEngine;
 
 public class Pit : MonoBehaviour
 {
-    public bool platform;
+    private static int platform = 0;
+    public bool Platform {
+        get => platform > 0;
+        set
+        {
+            platform += (value) ? 1 : -1;
+            if (platform < 0) platform = 0;
+        }
+    }
     protected void OnTriggerEnter2D(Collider2D c)
     {
         if (c.gameObject.CompareTag("Player"))
         {
-            if(platform==false)
+            if(!Platform)
             {
                 Debug.Log(" enter: Move.onPlat == false");
                 TriggerObstacle();
@@ -23,7 +31,7 @@ public class Pit : MonoBehaviour
     {
         if (c.gameObject.CompareTag("Player"))
         {
-            if(platform==false)
+            if(!Platform)
             {
                 Debug.Log("stay: Move.onPlat == false");
                 TriggerObstacle();
@@ -34,7 +42,7 @@ public class Pit : MonoBehaviour
     public void TriggerObstacle()
     {
         Debug.Log("Trigger in pit, player will die");
-        Player.Get.onPlayerDeath();
+        StartCoroutine(Player.Get.onPlayerDeath());
     }
     
 }

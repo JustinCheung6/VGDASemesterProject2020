@@ -140,7 +140,7 @@ public class SnowPile : Obstacle
         */
     }
     //Remove default obstacle OnCollisionEnter function
-    public override void OnCollisionEnter2D(Collision2D col)
+    protected override void OnCollisionEnter2D(Collision2D col)
     {
 
     }
