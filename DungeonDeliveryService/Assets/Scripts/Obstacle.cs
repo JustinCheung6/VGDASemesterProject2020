@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Obstacle : ResettableMechanic
 {
-    
+    [Header("Obstacle")]
     [Tooltip("The exact weight number where obstacle triggers")]
     [SerializeField] protected int weightTrigger = 1;
     [Tooltip("What Range is the obstacle a danger")]
