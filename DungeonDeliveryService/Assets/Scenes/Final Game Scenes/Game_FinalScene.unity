@@ -4314,7 +4314,7 @@ MonoBehaviour:
   weightTrigger: 5
   criteria: 1
   axis: 1
-  movement: 2.3389
+  movement: 1.89453
   untilDestroyed: 3
   platformAnim: {fileID: 253123946}
   pitGO: {fileID: 1105335934}
